@@ -10,7 +10,7 @@ import IP_ADDRESS from "../env.js";
 export default {
     methods: {
     async retrieveAddress() {
-      await fetch(IP_ADDRESS + '/truffle/fetchAddress', {
+      await fetch(IP_ADDRESS + '/truffle/fetchStockLevel', {
         method: 'GET',
         headers: {
           'Accept': 'application/json',

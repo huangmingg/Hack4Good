@@ -4,6 +4,40 @@ var cors = require('cors')
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
 
+
+
+router.get('/fetchStockLevel', cors(), async function(req, res, next) {
+  retailers = [
+    {name: "Cold Storage (Yishun) ", address: retailerOne},
+    {name: "Cold Storage (Sembawang) ", address: retailerTwo},
+    {name: "NTUC (KentRidge) ", address: retailerThree},
+  ];
+  
+  
+  output = []
+  for (retailer in retailers) {
+    var address = retailers[retailer].address;
+
+    await ecosystemInstance.methods.getPackagesOwned(address).call()
+    .then(function(result) {
+      console.log(result);
+      output.push(result);
+    })
+    .catch(function(err) {
+      console.log(err);
+    })
+  } 
+  if (output.length) {
+      res.send({'success' : true, 'message': output})
+  } else {
+      res.send({'success' : true, 'message': output})
+  }
+
+  // await ecosystemInstance.methods.getPackagesOwned()
+
+});
+
+
 router.get('/fetchAddress', cors(), function(req, res, next) {
   web3.eth.getAccounts()
   .then(function(result){
@@ -27,6 +61,10 @@ router.get('/getContractOwner', cors(), function(req, res, next) {
   });
 });
 
+router.post('/getProductInformation', cors(), function(req, res, next) {
+  var productID = req.body.productID;
+
+});
 
 router.get('/getBalance', cors(), function(req, res, next) {
   web3.eth.getBalance(accounts[1])
