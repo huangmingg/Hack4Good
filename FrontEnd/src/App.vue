@@ -1,34 +1,28 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-      </div>
-
-      <v-spacer></v-spacer>
-    </v-app-bar>
-
-    <v-content class="cont">
-      <h2>
-        Welcome!
-      </h2>
-      <Button></Button>
-      
+    <Header></Header>
+    <Stepper></Stepper>
+    <v-content>
+      <Expiring></Expiring>
+      <Button class='cont'></Button>
     </v-content>
   </v-app>
 </template>
 
 <script>
 import Button from "./components/Button.vue";
+import Header from "./components/Header.vue";
+import Expiring from "./components/Expiring.vue";
+import Stepper from "./components/Stepper.vue";
 
 export default {
   name: 'App',
 
   components: {
-    Button
+    Button,
+    Header,
+    Expiring,
+    Stepper,
   },
 
   data: () => ({
@@ -39,6 +33,10 @@ export default {
 
 <style scoped>
 .cont {
-  margin:auto;
+  margin: auto;
+}
+
+.bar {
+  color:rgb(10, 50, 100);
 }
 </style>
