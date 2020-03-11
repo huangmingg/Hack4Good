@@ -1,6 +1,6 @@
 <template>
-    <v-btn @click="retrieveAddress">
-        Get user address
+    <v-btn @click="retrieveStockLevel">
+        Get stock level for all
     </v-btn>
 </template>
 
@@ -9,7 +9,7 @@
 import IP_ADDRESS from "../env.js";
 export default {
     methods: {
-    async retrieveAddress() {
+    async retrieveStockLevel() {
       await fetch(IP_ADDRESS + '/truffle/fetchStockLevel', {
         method: 'GET',
         headers: {
