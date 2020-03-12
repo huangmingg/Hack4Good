@@ -44,21 +44,34 @@
     </v-container>
   </v-sheet>
 <!-- for info -->
-  <v-sheet v-for="n in totalpg" :key= n>
+ <v-sheet v-for="n in totalpg" :key= n>
     <v-container class="main">
-      <ul>
+      <!-- <ul>
         <li v-for="item in arrange(goods)" v-bind:key="item.name" class="item">
         {{ item.name }}: {{ item.qty }}
         </li>
-      </ul>
+      </ul> -->
     </v-container>
+    
   </v-sheet>
+  <GChart
+    :settings="{packages: ['corechart']}"      
+    :resizeDebounce="500" 
+    :data="chartData"
+    :options="chartOptions"
+    :events="chartEvents"
+    :createChart="(el, google) => new google.visualization.BarChart(el)"
+    @ready="onChartReady"
+  />
+  <router-link to="/supermarket" exact>hello</router-link>;
 </v-app>
-</template>
+</template> 
 
 <script>
+import { GChart } from 'vue-google-charts'
 export default {
-  data: () => ({
+  data() {
+    return {
     loc: 'north', //default
     locations: {
         north: 'North',
@@ -68,17 +81,28 @@ export default {
     },
     pg: 1,
     totalpg: 2,
-    goods: [
-      {name: 'Woodlands', qty: '1500'},
-      {name: 'Yishun', qty: '2200'},
-      {name: 'Sembawang', qty: '1000'},
-      {name: 'Admiralty', qty: '2000'},
-      {name: 'Khatib', qty: '1080'},
-      {name: 'Marsiling', qty: '1200'},
-      {name: 'Yio Chu Kang', qty: '2500'},
+    chartsLib: null, 
+    chartData: [
+      ['Area', 'Amount', { role: 'style' }],
+      ['Woodlands', 1500, 'blue'],            // RGB value
+      ['Yishun', 2200, 'blue'],            // English color name
+      ['Sembawang', 1000, 'blue'],
+      ['Admiralty', 2000, 'blue' ], 
+      ['Khatib', 1080, 'blue' ], 
+      ['Marsling', 1200, 'blue' ], 
+      ['Yio Chu Kang', 2500, 'blue' ], 
     ],
-  }),
-  methods: {
+    chartOptions: {
+        height: 300,
+    },
+    chartEvents: {
+      select: () => {      
+        alert("next page"),
+        <router-link to="/supermarket" exact>this.$refs.gChart.chartObject;</router-link>;
+    } 
+  }
+  }},
+ methods: {
     arrange(arr) {
       return arr.slice().sort(
         function(a, b) { // Set slice() to avoid to generate an infinite loop!
@@ -95,7 +119,13 @@ export default {
       if(this.pg < this.totalpg) {
         this.pg += 1;
       }
-    }
+    },
+    onChartReady (chart, google) {
+      this.chartsLib = google
+    },
+  },
+  components: {
+    GChart
   }
 }
 </script>
