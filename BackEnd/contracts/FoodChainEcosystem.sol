@@ -251,13 +251,11 @@ contract FoodChainEcosystem {
     }
 
     // Getter functions; publiv view methods which are free //
-
     function getProduceInformation(uint256 produceID) public view returns (produce memory) {
         address owner = _produceOwner[produceID];
         uint256 produceIndex = _indexOfProduceList[owner][produceID];
         return _ownedProduceList[owner][produceIndex];
     }
-
 
     function getNumberProduce(address selectedUser) public view returns (uint256) {
         // return _userInformations[selectedUser].produceQuantity;
@@ -303,6 +301,14 @@ contract FoodChainEcosystem {
 
     function getPackagesOwned(address ownerAddress) public view returns (package[] memory) {
         return _ownedPackageList[ownerAddress];
+    }
+
+    function getTotalProduce() public view returns (uint256) {
+        return totalProduceSupply;
+    }
+
+    function getTotalPackage() public view returns (uint256) {
+        return totalPackageSupply;
     }
 
 

@@ -59,10 +59,6 @@ app.use(function(err, req, res, next) {
 var devTools = require('./development.js');
 
 devTools.startNetwork();
-devTools.parseRetailers();
-
-
-
-
+// console.log(devTools.producers);
 
 module.exports = app;

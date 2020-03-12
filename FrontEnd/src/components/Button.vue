@@ -18,7 +18,10 @@ export default {
         })
       .catch((error) => {console.log(error)})
       .then((response) => response.json())
-      .then((res) => {console.log(res)});
+      .then((res) => {
+        console.log(res)
+        // do something with the results here
+        });
       }
     },
 }

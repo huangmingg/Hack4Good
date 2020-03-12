@@ -1,100 +1,213 @@
 const CSVtoJSON = require('csvtojson');
 const fs = require('fs');
-var Web3 = require('web3');
-var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
-
-var EcosystemJSON = require("./build/contracts/FoodChainEcosystem.json");
+const Web3 = require('web3');
+const web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
 
 // Contract deployment -- Only used during development 
 var EcosystemJSON = require("./build/contracts/FoodChainEcosystem.json");
 let abi = EcosystemJSON.abi;
 let EcosystemContract = new web3.eth.Contract(abi);
 EcosystemContract.options.data =  EcosystemJSON.bytecode;
+let addressCount = 0;
+let producers = [];
+let processors = [];
+let retailers = [];
 
-const firstProduceID = 0;
-const firstProduceReferenceID = web3.utils.asciiToHex("3035307B2831B38310447E03"); 
-const firstProduceName = web3.utils.asciiToHex("Yao Hong the Cow");
-const firstProduceDOB = new Date('03-05-2018').getTime();
+var produceSpecies = ["Angus", "Holstein Friesian", "Hereford", "Shorthorn", "Charolais", "Galloway", "Simmental", "Limousin"];
+var packageNames = [
+                    "Beef Chuck Tender (Chilled)",
+                    "Beef Shin Shank (Chilled)",
+                    "Bone-In Beef Ribs Tomahawk Prepared (Chilled)",
+                    "Angus Beef Ribeye (Chilled)",
+                    "Beef Striploin (Chilled)",
+                    "Beef Flank Steak (Chilled)",
+                    "Beef Rump (Chilled)",
+                    "Beef Tenderloin (Chilled)",
+                ];
 
-const firstPackageID = 0;
-const firstPackageReferenceID = web3.utils.asciiToHex("ISBN978-0-1234-5678-6");
-const firstPackageName = web3.utils.asciiToHex("Farmland Frozen Australia Marble Sirloin Steak");
-const firstPackageCategory = web3.utils.asciiToHex("Poultry");
-const firstPackagedWeight = 150;
-const firstPackagedDate = Date.now();
-const firstPackageBestBefore = Date.now() + (60000 * 60 * 24 * 30);
+var possiblePackageWeight = [150, 200, 250, 300];
 
-const secondPackageID = 1;
-const secondPackageReferenceID = web3.utils.asciiToHex("ISBN978-0-1234-5678-1");
-const secondPackageName = web3.utils.asciiToHex("Farmland Australia Frozen Marble Oxtail");
-const secondPackageCategory = web3.utils.asciiToHex("Poultry");
-const secondPackagedWeight = 80;
-const secondPackagedDate = Date.now();
-const secondPackageBestBefore = Date.now() + (60000 * 60 * 24 * 21);
+// Random functions to generate sample data
+// returns a random number between 0 and b -- map limit capped
+function generateRandom(b) {
+    return Math.floor((Math.random() * b));
+}
 
-const thirdPackageID = 2;
-const thirdPackageReferenceID = web3.utils.asciiToHex("ISBN978-0-1234-5678-3");
-const thirdPackageName = web3.utils.asciiToHex("Farmland Australia Fresh Marble Rib Eye Steak");
-const thirdPackageCategory = web3.utils.asciiToHex("Poultry");
-const thirdPackagedWeight = 300;
-const thirdPackagedDate = Date.now();
-const thirdPackageBestBefore = Date.now() + (60000 * 60 * 24 * 3);
+function generateRandomProduceWeight() {
+    return 900 + generateRandom(200);
+}
 
-let retailers;
+function generateRandomProduceSpecies() {
+    var size = produceSpecies.length;
+    return produceSpecies[generateRandom(size)];
+}
+
+function generateRandomPackageName() {
+    var size = packageNames.length;
+    return packageNames[generateRandom(size)];
+}
+
+function generateRandomPackageWeight() {
+    var size = possiblePackageWeight.length;
+    return possiblePackageWeight[generateRandom(size)];
+}
+
+// within the last 5 years
+
+function selectRandomProducer() {
+    var size = producers.length;
+    return producers[generateRandom(size)];
+}
+
+function selectRandomProcessor() {
+    var size = processors.length;
+    return processors[generateRandom(size)];
+}
+
+function selectRandomRetailer() {
+    var size = retailers.length;
+    return retailers[generateRandom(size)];
+}
+
+async function generateRandomProduce() {
+    var produceReferenceID = web3.utils.asciiToHex(web3.utils.randomHex(12));
+    var produceName = web3.utils.asciiToHex(generateRandomProduceSpecies());
+    var DOB = Date.now() - generateRandom(60000 * 60 * 24 * 30 * 12 * 4) - (60000 * 60 * 24 * 30 * 12);
+    var producerAddress = selectRandomProducer()['ethAddress'];
+    await ecosystemInstance.methods.createProduce(produceReferenceID, produceName, DOB).send({from: producerAddress, gas : 1000000});
+    var produceID = await ecosystemInstance.methods.getTotalProduce().call(); 
+    return [produceID - 1, producerAddress];
+}
+
+async function generateRandomPackage(produceID, processorAddress) {
+    var packageReferenceID = web3.utils.asciiToHex(web3.utils.randomHex(12));
+    var packageName = web3.utils.asciiToHex(generateRandomPackageName());
+    var packageCategory = web3.utils.asciiToHex("Poultry");
+    var packageWeight = generateRandomPackageWeight();
+    var packagedDate = Date.now() - generateRandom(60000 * 60 * 24 * 29) - (60000 * 60 * 24 * 1);
+    var bestBefore = packagedDate + (60000 * 60 * 24 * 30);
+    await ecosystemInstance.methods.createPackage(produceID, packageReferenceID, packageName, packageCategory, packageWeight, packagedDate, bestBefore).send({from: processorAddress, gas : 1000000});
+    var packageID = await ecosystemInstance.methods.getTotalPackage().call(); 
+    return packageID - 1;
+}
+
+
+async function fillProduce() {
+    for (i in producers) {
+        var numberProduce = 2 + generateRandom(3);
+        console.log(`Number of produce for ${producers[i]['shopName']} : ${numberProduce}`);
+        for (var j = 0; j < numberProduce; j++) {
+            const [produceID, producerAddress] = await generateRandomProduce();
+            console.log(`Producer Address : ${producerAddress}`);
+            console.log(`Produce ID :${produceID}`)
+            var processorAddress = selectRandomProcessor()['ethAddress'];
+            await ecosystemInstance.methods.sendForProcessing(produceID, processorAddress).send({from: producerAddress, gas : 1000000});
+            var numberPackage = 3 + generateRandom(3);
+            console.log(`Number of packages for produce ${produceID} : ${numberPackage}`);
+            for (var k = 0; k < numberPackage; k++) {
+                var packageID = await generateRandomPackage(produceID, processorAddress);
+                console.log(`Package ID: ${packageID}`);
+                console.log(`Processor Address: ${processorAddress}`);
+                var retailerAddress = selectRandomRetailer()['ethAddress'];
+                await ecosystemInstance.methods.sendToRetailer(packageID, retailerAddress).send({from : processorAddress, gas : 1000000});
+            }
+        }
+    }
+}
+
+// Ethereum account in the following order
+// Contract Owner (Only 1) --> Producers (Pull from records) --> Processors (Pull from records) --> Retailers (Pull from records) --> Consumers (Only 1)
+
+async function parseProducers () {
+    console.log("Parsing Producers");
+    await CSVtoJSON().fromFile("./_producer.csv")
+    .then(results => {
+        for (i in results) {
+            addressCount++;
+            var shopAddress = accounts[addressCount];
+            var shopName = `${results[i]['name']} - ${results[i]['category']}`
+            producers.push({'shopID': i, 'shopName': shopName, 'country': results[i]['country'],'ethAddress' : shopAddress});
+        }
+    });
+}
+
+async function parseProcessors () {
+    console.log("Parsing Processors");
+    await CSVtoJSON().fromFile("./_processor.csv")
+    .then(results => {
+        for (i in results) {  
+            addressCount++;
+            var shopAddress = accounts[addressCount];
+            // var shopAddress = web3.eth.accounts.create().address;
+            var shopName = `${results[i]['name']} - ${results[i]['category']}`
+            processors.push({'shopID': i, 'shopName': shopName, 'country': results[i]['country'],'ethAddress' : shopAddress});
+        }
+    });
+
+}
+
+async function parseRetailers () {
+    console.log("Parsing Retailers");
+    await CSVtoJSON().fromFile("./_retailer.csv")
+    .then(results => {    
+        for (i in results) {
+            addressCount++;
+            var shopAddress = accounts[addressCount];
+            var shopName = `${results[i]['shop']} - ${results[i]['location']}`; 
+            // var shopAddress = web3.eth.accounts.create().address;
+            retailers.push({'shopID': i,'shopName' : shopName, 'country': results[i]['country'], 'ethAddress' : shopAddress});
+        }
+    });
+}
+
+async function registerStakeholders () {
+    console.log("Registering various stakeholders");
+    // Register all producers
+    for (i in producers) {
+        // console.log(producers[i]);
+        await ecosystemInstance.methods.registerProducer(producers[i]['ethAddress']).send({from : contractOwner, gas : 1000000});
+    }
+    // Register all processors
+    for (j in processors) {
+        // console.log(processors[j]);
+        await ecosystemInstance.methods.registerProcessor(processors[j]['ethAddress']).send({from : contractOwner, gas : 1000000});
+    }
+    // Register all retailers
+    for (k in retailers) {
+        // console.log(retailers[k]);
+        await ecosystemInstance.methods.registerRetailer(retailers[k]['ethAddress']).send({from : contractOwner, gas : 1000000});
+    }
+}
+
+
+async function startNetwork () {
+    web3.eth.getAccounts()
+    .then(function(result){ 
+        global.accounts = result;
+        global.contractOwner = result[0];
+        EcosystemContract.deploy().send({from: accounts[0], gas: 20000000})
+        .then(async function(ecosystemInstance){
+            global.ecosystemInstance = ecosystemInstance;
+            console.log(`Ecosystem Contract has been deployed at : ${ecosystemInstance.options.address} by ${accounts[0]}`);
+            await parseProducers();
+            await parseProcessors();
+            await parseRetailers();
+            await registerStakeholders();
+            await fillProduce();
+            })
+    .catch(function(error) {
+      console.log(error)
+        })    
+    });
+}
 
 
 module.exports = {
     startNetwork : async function () {
-        web3.eth.getAccounts()
-        .then(function(result){ 
-            global.accounts = result;
-            global.contractOwner = result[0];
-            global.producer = result[1];
-            global.processor = result[2];
-            global.retailerOne = result[3];
-            global.retailerTwo = result[4];
-            global.retailerThree = result[5];
-            global.consumer = result[6];
-            EcosystemContract.deploy()
-        .send({
-            from: accounts[0],
-            gas: 20000000
-              })
-        .then(async function(ecosystemInstance){
-            global.ecosystemInstance = ecosystemInstance
-            console.log(`Ecosystem Contract has been deployed at : ${ecosystemInstance.options.address} by ${accounts[0]}`)
-            await ecosystemInstance.methods.registerProducer(producer).send({from : contractOwner, gas : 1000000});
-            await ecosystemInstance.methods.registerProcessor(processor).send({from : contractOwner, gas : 1000000});
-            await ecosystemInstance.methods.registerRetailer(retailerOne).send({from : contractOwner, gas : 1000000});
-            await ecosystemInstance.methods.registerRetailer(retailerTwo).send({from : contractOwner, gas : 1000000});
-            await ecosystemInstance.methods.registerRetailer(retailerThree).send({from : contractOwner, gas : 1000000});
-    
-            await ecosystemInstance.methods.createProduce(firstProduceReferenceID, firstProduceName, firstProduceDOB).send({from : producer,  gas: 1000000});
-            await ecosystemInstance.methods.sendForProcessing(firstProduceID, processor).send({from : producer, gas : 1000000});
-            await ecosystemInstance.methods.createPackage(firstProduceID, firstPackageReferenceID, firstPackageName, firstPackageCategory, firstPackagedWeight, firstPackagedDate, firstPackageBestBefore).send({from : processor, gas : 1000000});
-            await ecosystemInstance.methods.createPackage(firstProduceID, secondPackageReferenceID, secondPackageName, secondPackageCategory, secondPackagedWeight, secondPackagedDate, secondPackageBestBefore).send({from : processor, gas : 1000000});
-            await ecosystemInstance.methods.createPackage(firstProduceID, thirdPackageReferenceID, thirdPackageName, thirdPackageCategory, thirdPackagedWeight, thirdPackagedDate, thirdPackageBestBefore).send({from : processor, gas : 1000000});
-            
-            await ecosystemInstance.methods.sendToRetailer(firstPackageID, retailerOne).send({from : processor, gas : 10000000});
-            await ecosystemInstance.methods.sendToRetailer(secondPackageID, retailerOne).send({from : processor, gas : 1000000});
-            await ecosystemInstance.methods.sendToRetailer(thirdPackageID, retailerOne).send({from : processor, gas : 1000000});
-            })
-        .catch(function(error) {
-          console.log(error)
-            })    
-        });
+        startNetwork();
     },
 
-    parseRetailers: async function () {
-        CSVtoJSON().fromFile("./retailer.csv").then(results => {
-            retailers = results;
-            for (i in retailers) {
-                var shopName = `${retailers[i]['shop']} - ${retailers[i]['location']}`; 
-                var shopAddress = web3.eth.accounts.create().address;
-                retailers[i]['ethAddress'] = shopAddress;
-            }
-            // console.log(retailers);
-        })
-        
-    }
+    producers : producers,
+    processors : processors,
+    retailers : retailers
   };
