@@ -75,13 +75,15 @@ export default {
     pg: 1,
     maxitems: 5,
     goods: [
-      {name: 'Causeway Point Fairprice Extra', qty: '1000', loc: 'Woodlands', mkt: 'NTUC'},
-      {name: 'Blk 820 Fairprice', qty: '800', loc: 'Woodlands', mkt: 'NTUC'},
-      {name: 'Woodlands Mart Fairprice', qty: '500', loc: 'Woodlands', mkt: 'NTUC'},
-      {name: 'Woodlands Plaza Fairprice Finest', qty: '680', loc: 'Woodlands', mkt: 'NTUC'},
-      {name: 'Woodlands Field Cold Storage', qty: '1040', loc: 'Woodlands', mkt: 'CS'},
-      {name: 'Woodlands Loop Giant', qty: '540', loc: 'Woodlands', mkt: 'G'},
-      {name: 'Woodlands Sheng Siong', qty: '520', loc: 'Woodlands', mkt: 'SS'}
+      {name: 'Causeway Point Fairprice Extra', qty: 1000, loc: 'Woodlands', mkt: 'NTUC'},
+      {name: 'Blk 820 Fairprice', qty: 800, loc: 'Woodlands', mkt: 'NTUC'},
+      {name: 'Woodlands Mart Fairprice', qty: 500, loc: 'Woodlands', mkt: 'NTUC'},
+      {name: 'Woodlands Plaza Fairprice Finest', qty: 680, loc: 'Woodlands', mkt: 'NTUC'},
+      {name: 'Woodlands 534 Fairprice', qty: 100, loc: 'Woodlands', mkt: 'NTUC'},
+      {name: 'Fairprice@WoodlandsSt93', qty: 430, loc: 'Woodlands', mkt: 'NTUC'},
+      {name: 'Woodlands Field Cold Storage', qty: 1040, loc: 'Woodlands', mkt: 'CS'},
+      {name: 'Woodlands Loop Giant', qty: 540, loc: 'Woodlands', mkt: 'G'},
+      {name: 'Woodlands Sheng Siong', qty: 520, loc: 'Woodlands', mkt: 'SS'}
     ],
     display: [], //for each page
     def: true,
@@ -105,6 +107,7 @@ export default {
       this.display = display;
     },
     initialDisplay() { //for display page
+      this.def = true
       this.display = this.arrange(this.goods).slice(0, 5) //by default should show the first 5 items
     },
     show() { //when user first clicks

@@ -55,29 +55,10 @@ app.use(function(err, req, res, next) {
 });
 
 
+// import startNetwork from ;
+var devTools = require('./development.js');
 
-// Contract deployment -- Only used during development
-var EcosystemJSON = require("./build/contracts/Ecosystem.json");
-let abi = EcosystemJSON.abi;
-let EcosystemContract = new web3.eth.Contract(abi);
-EcosystemContract.options.data =  EcosystemJSON.bytecode;
-
-web3.eth.getAccounts()
-.then(function(result){ 
-    global.accounts = result
-    EcosystemContract.deploy()
-    .send({
-        from: accounts[0],
-        gas: 1000000
-          })
-    .then(function(ecosystemInstance){
-        global.ecosystemInstance = ecosystemInstance
-        console.log(`Ecosystem Contract has been deployed at : ${ecosystemInstance.options.address} by ${accounts[0]}`)
-    })
-    .catch(function(error) {
-      console.log(error)
-    })    
-});
-
+devTools.startNetwork();
+// console.log(devTools.producers);
 
 module.exports = app;

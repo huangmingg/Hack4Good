@@ -34,15 +34,17 @@
         <keep-alive>
          <component :is='componentName'/>
         </keep-alive>
-
+        <v-container>
             <v-btn
             color="primary"
             @click="next"
+            class="next"
             >
             Continue
             </v-btn>
             <v-btn
             @click="prev">Back</v-btn>
+        </v-container>
         </v-stepper-content>
     </v-stepper-items>
   </v-stepper>
@@ -126,16 +128,6 @@ export default {
         },
     },
     methods: {
-        next() {
-            if (this.e1 != this.steps.length) {
-                this.e1 += 1
-            }
-        },
-        prev() {
-            if (this.e1 != 1) {
-                this.e1 -= 1
-            }
-        }
     }
 }
 </script>
@@ -145,5 +137,8 @@ export default {
     block-size: 0 5;
     font-size: 14px;
     margin: auto;
+}
+.next {
+  margin-right: 15px;
 }
 </style>

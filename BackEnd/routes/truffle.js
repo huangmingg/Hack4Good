@@ -4,6 +4,48 @@ var cors = require('cors')
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
 
+
+var devTools = require('../development.js');
+
+
+function handlePackageInformation(listOfPackages) {
+  final_output = []
+  for (item in listOfPackages) {    
+    formatted_output = {
+                      "Package Reference ID" : web3.utils.hexToAscii(listOfPackages[item][0]),
+                      "Package Name" : web3.utils.hexToAscii(listOfPackages[item][1]),
+                      "Package Category" : web3.utils.hexToAscii(listOfPackages[item][2]),
+                      "Package Weight" : listOfPackages[item][3],
+                      "Processed Date" : listOfPackages[item][4],
+                      "Best Before" : listOfPackages[item][5] }
+    final_output.push(formatted_output);
+  } 
+  return final_output;
+}
+
+router.get('/fetchStockLevel', cors(), async function(req, res, next) {
+  retailers = devTools.retailers;
+  output = []
+  for (retailer in retailers) {
+    var address = retailers[retailer]['ethAddress'];
+
+    await ecosystemInstance.methods.getPackagesOwned(address).call()
+    .then(function(result) {
+      result = handlePackageInformation(result);
+      output.push(result);
+    })
+    .catch(function(err) {
+      console.log(err);
+    })
+  } 
+  if (output.length) {
+      res.send({'success' : true, 'message': output})
+  } else {
+      res.send({'success' : true, 'message': output})
+  }
+});
+
+
 router.get('/fetchAddress', cors(), function(req, res, next) {
   web3.eth.getAccounts()
   .then(function(result){
@@ -27,6 +69,10 @@ router.get('/getContractOwner', cors(), function(req, res, next) {
   });
 });
 
+router.post('/getProductInformation', cors(), function(req, res, next) {
+  var productID = req.body.productID;
+
+});
 
 router.get('/getBalance', cors(), function(req, res, next) {
   web3.eth.getBalance(accounts[1])
@@ -44,23 +90,6 @@ router.get('/getName', cors(), async function(req, res, next) {
     res.send({'success' : true, 'message':result});
   });
 });
-
-
-router.post('/createOrganization', cors(), async function(req, res, next) {
-  var name = web3.utils.hexToBytes(web3.utils.asciiToHex(req.body.name));
-  var UEN = web3.utils.hexToBytes(web3.utils.asciiToHex(req.body.UEN));
-  var industry = web3.utils.hexToBytes(web3.utils.asciiToHex(req.body.industry));
-  var address = web3.utils.hexToBytes(web3.utils.asciiToHex(req.body.address));
-  await ecosystemInstance.methods.createOrganization(name, UEN, industry, address).send({from : accounts[1],  gas: 1000000})
-  .then(function(result) {
-    console.log(result)
-  })
-  .catch(function(err) {
-    console.log(err)
-  })
-});
-
-
 
 module.exports = router;
 

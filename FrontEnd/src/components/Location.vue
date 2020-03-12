@@ -42,18 +42,20 @@
       :length="totalpg"
       @input="onPageChange"
     ></v-pagination>
-    <v-container class="main" v-if="loc == 'A'">
-      {{ show() }}
+    <v-container class="main">
       <ul>
         <li v-for="i in display" :key="i.name" class="item">
-        {{ i.name }}: {{ i.qty }}
-        </li>
-      </ul>
-    </v-container>
-    <v-container class="main" v-else>
-      <ul>
-        <li v-for="i in display" :key="i.name" class="item">
-        {{ i.name }}: {{ i.qty }}
+          {{ i.name }}: {{ i.qty }}
+<!--        <GChart
+    :settings="{packages: ['corechart']}"
+    :resizeDebounce="500"
+    :data="display"
+    :options="chartOptions"
+    :events="chartEvents"
+    :createChart="(el, google) => new google.visualization.BarChart(el)"
+    @ready="onChartReady"
+  />
+  <router-link to="/supermarket" exact>hello</router-link>; -->
         </li>
       </ul>
     </v-container>
@@ -62,6 +64,8 @@
 </template>
 
 <script>
+//import { GChart } from 'vue-google-charts'
+
 export default {
   data: () => ({
     loc: 'A', //default
@@ -75,9 +79,29 @@ export default {
     },
     pg: 1,
     maxitems: 5,
+    chartsLib: null,
+    chartData: [
+      ['Area', 'Amount', { role: 'style' }],
+      ['Woodlands', 1500, 'blue'],            // RGB value
+      ['Yishun', 2200, 'blue'],            // English color name
+      ['Sembawang', 1000, 'blue'],
+      ['Admiralty', 2000, 'blue' ],
+      ['Khatib', 1080, 'blue' ],
+      ['Marsling', 1200, 'blue' ],
+      ['Yio Chu Kang', 2500, 'blue' ],
+    ],
+    chartOptions: {
+        height: 300,
+    },
+    chartEvents: {
+      select: () => {
+        alert("next page"),
+        <router-link to="/supermarket" exact>this.$refs.gChart.chartObject;</router-link>;
+      }
+    },
     goods: [
-      {name: 'Woodlands', qty: '1500', loc: 'N'},
-      {name: 'Yishun', qty: '2200', loc: 'N'},
+      {name: 'Woodlands', qty: 1500, loc: 'N'},
+      {name: 'Yishun', qty: 2200, loc: 'N'},
       {name: 'Sembawang', qty: '1000', loc: 'N'},
       {name: 'Admiralty', qty: '2000', loc: 'N'},
       {name: 'Khatib', qty: '1080', loc: 'N'},
@@ -100,7 +124,7 @@ export default {
     ],
     display: [], //for each page
     arranged: [], //for an arranged version of filtered goods
-  }),
+    }),
   methods: {
     arrange: function(arr) {
       return arr.slice().sort((a, b) => b.qty - a.qty); // slice so that it clones the array to avoid to generate an infinite loop!
@@ -120,8 +144,12 @@ export default {
       this.display = display;
     },
     show() { //for the first page
+      this.pg = 1
       this.arranged = this.arrange(this.filterGds) //arrange the filtered goods
       this.display = this.arranged.slice(0, 5) //by default should show the first 5 items
+    },
+    onChartReady (chart, google) {
+      this.chartsLib = google
     },
   },
   computed: { //cannot modify data property here
@@ -140,6 +168,9 @@ export default {
         }
       },
    },
+   components: {
+    // GChart
+   }
 }
 </script>
 
