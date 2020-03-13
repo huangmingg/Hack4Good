@@ -86,13 +86,16 @@ async function generateRandomPackage(produceID, processorAddress) {
     var packageWeight = generateRandomPackageWeight();
     var packagedDate = Date.now() - generateRandom(60000 * 60 * 24 * 29) - (60000 * 60 * 24 * 1);
     var bestBefore = packagedDate + (60000 * 60 * 24 * 30);
+    console.log(`Packaged Date : ${packagedDate}`);
+    console.log(`Packaged Date : ${bestBefore}`);
+
     await ecosystemInstance.methods.createPackage(produceID, packageReferenceID, packageName, packageCategory, packageWeight, packagedDate, bestBefore).send({from: processorAddress, gas : 1000000});
     var packageID = await ecosystemInstance.methods.getTotalPackage().call(); 
     return packageID - 1;
 }
 
 
-async function fillProduce() {
+async function fillData() {
     for (i in producers) {
         var numberProduce = 2 + generateRandom(3);
         console.log(`Number of produce for ${producers[i]['shopName']} : ${numberProduce}`);
@@ -111,7 +114,9 @@ async function fillProduce() {
                 var retailerAddress = selectRandomRetailer()['ethAddress'];
                 await ecosystemInstance.methods.sendToRetailer(packageID, retailerAddress).send({from : processorAddress, gas : 1000000});
             }
+            break;
         }
+        break;
     }
 }
 
@@ -193,7 +198,7 @@ async function startNetwork () {
             await parseProcessors();
             await parseRetailers();
             await registerStakeholders();
-            await fillProduce();
+            await fillData();
             })
     .catch(function(error) {
       console.log(error)

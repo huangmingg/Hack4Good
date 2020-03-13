@@ -17,7 +17,7 @@ function handlePackageInformation(listOfPackages) {
                       "Package Category" : web3.utils.hexToAscii(listOfPackages[item][2]),
                       "Package Weight" : listOfPackages[item][3],
                       "Processed Date" : listOfPackages[item][4],
-                      "Best Before" : listOfPackages[item][5] }
+                      "Best Before" : listOfPackages[item][5]}
     final_output.push(formatted_output);
   } 
   return final_output;
@@ -32,7 +32,7 @@ router.get('/fetchStockLevel', cors(), async function(req, res, next) {
     await ecosystemInstance.methods.getPackagesOwned(address).call()
     .then(function(result) {
       result = handlePackageInformation(result);
-      output.push(result);
+      output.push({"shop_name" : retailers[retailer]['shopName'], "res":result});
     })
     .catch(function(err) {
       console.log(err);
