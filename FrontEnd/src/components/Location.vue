@@ -3,7 +3,7 @@
 
 <!-- for page info -->
 <v-app>
-  <>
+ <!--  <cat v:bind stocks = "stocks"> -->
   <v-sheet height="40" >
     <v-toolbar-title class="head">
       Stock Level for Expiring Goods in
@@ -39,11 +39,11 @@
 <!-- for info -->
 
   <v-sheet>
-    <v-pagination
+    <!-- <v-pagination
       v-model="pg"
       :length="totalpg"
       @input="onPageChange"
-    ></v-pagination>
+    ></v-pagination>  -->
     <v-container class="main">
       <router-link to="/cat" exact>Cat</router-link>
       <ul>
@@ -66,18 +66,7 @@
 
 <script>
 import IP_ADDRESS from "../env.js";
-import Vue from 'vue';
-
-Vue.component('stock-level', {
-  props: ['stocks'], 
-  template: 'stocks'
-})
-
-var firstCompnenet = new Vue({
-  el: '#firstComponent',
-  data: {
-    stocks
-})
+//import Category from './components/Category.vue';
 
 export default {
   name: 'location',
@@ -201,6 +190,9 @@ export default {
         }
       },
    },
+ //  components:{
+ //    'cat': Category
+ //  }
 }
 </script>
 
