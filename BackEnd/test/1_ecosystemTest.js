@@ -1,28 +1,5 @@
 var FoodChainEcosystem = artifacts.require('../contracts/FoodChainEcosystem.sol');
 var web3 = require('web3');
-//var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
-
-/* Summary of testing sequence 
-// Do note that ERC20 will not be tested, with the exception of token minting at the start, and token approval for contract transfer.
-// I have included a wrapped array for logs generated, with the last test block generating this log, so uncomment this block if you do not wish to see the logs.
-// I have also included the console.logs in the respective blocks which are commented out, so uncomment accordingly should you wish to see the logs individually for each test block instead.
-// Some of the init numbers are generated randomly (productID, quantity, excessAmount, price) to provide a more rigorous testing
-// Testing sequence as follows:
-// (1) contract owner will mint ERC20 token to buyer 
-// (2) negative testing of registering (a) buyer (b) seller (c) inspector
-// (3) positive testing of registering (a) buyer (b) seller (c) inspector
-// (4) negative testing of product listing (non-white listed seller)
-// (5) seller will list product for sale
-// (6) buyer will approve platform with allowance (permission to transfer money)
-// (7) check sales ID of transaction block
-// (8) negative testing of buying product (non white listed buyer)
-// (9) buyer will attempt to buy product
-// (10) negative testing of accepting sales (non white listed inspector)
-// (11) negative testing of rejecting sales (non white listed inspector)
-// (12) inspector will accept sales order
-// (13) buyer will attempt to buy product again
-// (14) inspector will reject sales order
-*/
 
 contract('FoodChainEcosystem', function(accounts) {
         const contractOwner = accounts[0];

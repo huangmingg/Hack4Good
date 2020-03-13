@@ -16,8 +16,8 @@ function handlePackageInformation(listOfPackages) {
                       "Package Name" : web3.utils.hexToAscii(listOfPackages[item][1]),
                       "Package Category" : web3.utils.hexToAscii(listOfPackages[item][2]),
                       "Package Weight" : listOfPackages[item][3],
-                      "Processed Date" : new Date(parseInt(listOfPackages[item][4])).toLocaleDateString(),
-                      "Best Before" : new Date(parseInt(listOfPackages[item][5])).toLocaleDateString(),
+                      "Processed Date" : parseInt(listOfPackages[item][4]),
+                      "Best Before" : parseInt(listOfPackages[item][5]),
                       "Processor" : getProcessorName(listOfPackages[item][6]),
                       "Asset ID" : listOfPackages[item][8]}
     final_output.push(formatted_output);
@@ -32,7 +32,7 @@ function handleDetailedInformation(produceInformation) {
   formatted_output = {
                       "ProduceRefID" : web3.utils.hexToAscii(produceInformation[0]),
                       "Produce Name" : web3.utils.hexToAscii(produceInformation[1]),
-                      "Date of Birth" : new Date(parseInt(produceInformation[2])).toLocaleDateString(),
+                      "Date of Birth" : parseInt(produceInformation[2]),
                       "Producer" : producerName,
                       "Country" : producerOrigin};
   return formatted_output;

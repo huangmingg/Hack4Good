@@ -46,10 +46,6 @@ contract FoodChainEcosystem {
         _;
     }
 
-    modifier isValidPackage(uint256 packageID) {
-        require(1 == 1, "Package is invalid");
-        _;
-    }
 
     modifier isProcessorAddress(address processor) {
         require(_userInformations[processor].isProcessor == true, "Listed Address is not registered processor!");
@@ -228,7 +224,7 @@ contract FoodChainEcosystem {
         emit DeliveredPackage(packageID);
     }
 
-    function sellPackage(uint256 packageID) public isRetailer() isValidPackage(packageID) isPackageOwner(packageID) {
+    function sellPackage(uint256 packageID) public isRetailer() isPackageOwner(packageID) {
         _packageOwner[packageID] = address(0);
 
         uint256 packagerArrayLength = _ownedPackageList[msg.sender].length;

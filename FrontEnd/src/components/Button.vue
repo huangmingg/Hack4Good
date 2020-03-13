@@ -26,7 +26,7 @@ export default {
     },
     
     beforeMount () {
-      this.retrieveStockLevel();
+      // this.retrieveStockLevel();
     },
 }
 </script>
