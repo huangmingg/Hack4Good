@@ -1,29 +1,20 @@
 <template>
-<v-sheet height="40">
+<v-sheet>
     <v-toolbar-title class="head">
       Stock Level for Expiring Goods in 3 days
-      <v-menu>
-        <v-list v-for="(stock) in stocks" :key="stock.shop_name" @click="retrieveProductInformation()">
-            <v-list-item> </v-list-item>
-          <!-- <v-list-item @click="loc = 'A'; show()">
-            <v-list-item-title>All Locations</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="loc = 'N'; show()">
-            <v-list-item-title>North</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="loc = 'W'; show()">
-            <v-list-item-title>West</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="loc = 'E'; show()">
-            <v-list-item-title>East</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="loc = 'NE'; show()">
-            <v-list-item-title>North East</v-list-item-title>
-          </v-list-item> -->
-        </v-list>
-      </v-menu>
     </v-toolbar-title>
+        <v-list>
+            <v-list-item v-for="stock in stocks" :key="stock.shop_name" @click="handleClick(stock)"> 
+                <v-list-item-content>
+                    <v-list-item-title v-text="stock.shop_name + ' : ' + stock.items.length"></v-list-item-title>
+                    <v-list-item-avatar>
+                        <v-list-item-title v-text="stock.items.length"></v-list-item-title>
+                    </v-list-item-avatar>
+               </v-list-item-content>
+            </v-list-item>
+        </v-list>
   </v-sheet>
+  
 </template>
 
 <script>
@@ -42,9 +33,14 @@ export default {
         .then((response) => response.json())
         .then((res) => {
             console.log(res)
-            // do something with the results here
             });
         },
+
+
+    handleClick(stock) {
+        this.$router.push({name: "cat", params: { msg: stock }});
+    },
+
     async retrieveStockLevel() {
       await fetch(IP_ADDRESS + '/truffle/stock/levels', {
         method: 'GET',
@@ -64,9 +60,9 @@ export default {
             this.stocks.push({"shop_name" : shopName, "items" : expiringItems});
         }
         this.stocks.sort(function(a, b) {
-            return a["items"].length - b["items"].length; 
+            return b["items"].length - a["items"].length; 
         })
-        console.log(this.stocks);
+            console.log(this.stocks);
         });
     }},
 
@@ -76,7 +72,6 @@ export default {
 
     data: () => ({
         stocks : [
-            
         ]
     })
 }
