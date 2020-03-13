@@ -12,6 +12,10 @@ import Button from "./components/Button.vue";
 import Header from "./components/Header.vue";
 import Stepper from "./components/Stepper.vue";
 import Product from "./components/Product.vue";
+//import Location from "./components/Location.vue";
+//import Category from "./components/Category.vue";
+
+
 
 export default {
   name: 'App',
@@ -20,7 +24,9 @@ export default {
     Button,
     Header,
     Stepper,
-    Product
+    Product,
+  //  Location,
+  //  Category
   },
 
   data: () => ({
