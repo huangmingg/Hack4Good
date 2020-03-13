@@ -1,8 +1,10 @@
 <template>
    
    <v-app>
-        {{welcome}}
-
+       hi
+        <li v-for="stock in stockLevel" v-bind:key = "stock.name">
+            {{stock.shop_name}}
+        </li>
    </v-app>
    
 </template>

@@ -3,7 +3,6 @@
 
 <!-- for page info -->
 <v-app>
- <!--  <cat v:bind stocks = "stocks"> -->
   <v-sheet height="40" >
     <v-toolbar-title class="head">
       Stock Level for Expiring Goods in
@@ -39,37 +38,32 @@
 <!-- for info -->
 
   <v-sheet>
-    <!-- <v-pagination
-      v-model="pg"
-      :length="totalpg"
-      @input="onPageChange"
-    ></v-pagination>  -->
+
     <v-container class="main">
-      <router-link to="/cat" exact>Cat</router-link>
+      <li v-for="stock in stockLevel" v-bind:key = "stock.name">
+            {{stock.shop_name}} : {{stock.items.length}}
+        </li>
       <ul>
        <!-- <li v-for="i in display" :key="i.name" class="item"> -->
-          <li v-for="i in stocks" :key="i.shop_name">
+          <!-- <li v-for="i in stocks" :key="i.shop_name">
           {{ i.shop_name }}: {{i.items.length}}
-        </li>
+        </li> -->
       </ul>
     </v-container>
     
   </v-sheet>
-  <v-sheet>
-    Test
-    {{stocks}}
-    
-    </v-sheet>
 </v-app>
 
 </template>
 
 <script>
-import IP_ADDRESS from "../env.js";
-//import Category from './components/Category.vue';
 
 export default {
-  name: 'location',
+  props:{
+          stockLevel:{
+              type:Array
+          }
+      },
   data: () => ({
     loc: 'A', //default
     def: true,
@@ -83,29 +77,6 @@ export default {
     pg: 1,
     maxitems: 5,
     stocks: [],
-    goods: [
-      {name: 'Woodlands', qty: 1500, loc: 'N'},
-      {name: 'Yishun', qty: 2200, loc: 'N'},
-      {name: 'Sembawang', qty: '1000', loc: 'N'},
-      {name: 'Admiralty', qty: '2000', loc: 'N'},
-      {name: 'Khatib', qty: '1080', loc: 'N'},
-      {name: 'Marsiling', qty: '1200', loc: 'N'},
-      {name: 'Yio Chu Kang', qty: '2500', loc: 'N'},
-      {name: 'Sengkang', qty: '3200', loc: 'NE'},
-      {name: 'Buangkok', qty: '2000', loc: 'NE'},
-      {name: 'Punggol', qty: '3500', loc: 'NE'},
-      {name: 'Hougang', qty: '2800', loc: 'NE'},
-      {name: 'Potong Pasir', qty: '1900', loc: 'NE'},
-      {name: 'Kovan', qty: '2500', loc: 'NE'},
-      {name: 'Serangoon', qty: '4000', loc: 'NE'},
-      {name: 'Boon Keng', qty: '1500', loc: 'NE'},
-      {name: 'Woodleigh', qty: '1200', loc: 'NE'},
-      {name: 'Little India', qty: '2450', loc: 'NE'},
-      {name: 'Dhoby Ghaut', qty: '5000', loc: 'NE'},
-      {name: 'Jurong East', qty: '4080', loc: 'W'},
-      {name: 'Tuas', qty: '900', loc: 'W'},
-      {name: 'Chinese Garden', qty: '1590', loc: 'W'},
-    ],
     display: [], //for each page
     arranged: [], //for an arranged version of filtered goods
     }),
@@ -132,56 +103,8 @@ export default {
       this.arranged = this.arrange(this.filterGds) //arrange the filtered goods
       this.display = this.arranged.slice(0, 5) //by default should show the first 5 items
     },
-        async retrieveProductInformation() {
-        var produceID = 0;
-        await fetch(IP_ADDRESS + '/truffle/package/information?produceID=' + produceID, {
-            method: 'GET',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'}
-            })
-        .catch((error) => {console.log(error)})
-        .then((response) => response.json())
-        .then((res) => {
-            console.log(res)
-            // do something with the results here
-            });
-        },
-    async retrieveStockLevel() {
-      await fetch(IP_ADDRESS + '/truffle/stock/levels', {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'}
-        })
-      .catch((error) => {console.log(error)})
-      .then((response) => response.json())
-      .then((res) => {
-        for (var i = 0; i < res.message.length; i++) {
-            var shopName = res.message[i].shop_name; 
-            var items = res.message[i].res;
-            var expiringItems = items.filter((object) => {
-                return object["Best Before"] < (parseInt(Date.now()) + 60000 * 60 * 24 * 3);
-            })
-            this.stocks.push({"shop_name" : shopName, "items" : expiringItems});
-        }
-        this.stocks.sort(function(a, b) {
-            return b["items"].length - a["items"].length; 
-        })
-        console.log(this.stocks);
-        });
-    }},
-    beforeMount () {
-      this.retrieveStockLevel();
-    },
-  computed: { //cannot modify data property here
- /*     filterGds: function() {
-        if (this.loc == 'A') {
-          return this.goods
-        } else {
-          return this.goods.filter(good => good.loc == this.loc);
-        }
-      }, */
+  
+  computed: { 
       totalpg: function() {
         if (this.loc == 'A') {
           return Math.ceil(this.goods.length/this.maxitems);
@@ -190,9 +113,8 @@ export default {
         }
       },
    },
- //  components:{
- //    'cat': Category
- //  }
+
+  }
 }
 </script>
 
