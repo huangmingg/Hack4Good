@@ -37,8 +37,8 @@ export default {
         },
 
 
-    handleClick(stock) {
-        this.$router.push({name: "cat", params: { msg: stock }});
+    handleClick(stocks) {
+        this.$router.push({name: "cat", params: { stocks: stocks }});
     },
 
     async retrieveStockLevel() {

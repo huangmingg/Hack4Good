@@ -1,30 +1,30 @@
 <template>
-   
-   <v-app>
-       hi
-        <li v-for="stock in stockLevel" v-bind:key = "stock.name">
-            {{stock.shop_name}}
-        </li>
-   </v-app>
-   
+   <v-sheet>
+        <v-toolbar-title class="head">
+            Stock Levels for {{ information.shop_name }}
+        </v-toolbar-title>
+        <v-list>
+            <v-list-item v-for="item in information.items" :key="item['Package Reference ID']"> 
+                <v-list-item-content>
+                    <v-list-item-title v-text="item['Package Name']"></v-list-item-title>
+               </v-list-item-content>
+            </v-list-item>
+        </v-list>
+  </v-sheet>
 </template>
 
 <script>
     export default {
      name: 'cat',
-     props: ['msg'],
-
+     props: ['stocks'],
      data() {
         return {
-            welcome: 'This is your profile'
+            information: []
         }
      },
-
      mounted () {
-        if (this.msg) {
-             console.log("asd")
-             console.log(this.msg)
-             this.welcome = this.msg
+        if (this.stocks) {
+            this.information = this.stocks
         }
      }
  }
