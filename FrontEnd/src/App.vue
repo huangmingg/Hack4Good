@@ -1,17 +1,19 @@
 <template>
   <v-app>
     <Header></Header>
-    <Stepper></Stepper>
+    <router-view></router-view>
+  <!--  <Stepper></Stepper>
     <Button class='cont'></Button>
-    <Product class='cont'></Product>
+    <Product class='cont'></Product> -->
+    
   </v-app>
 </template>
 
 <script>
-import Button from "./components/Button.vue";
+// import Button from "./components/Button.vue";
 import Header from "./components/Header.vue";
-import Stepper from "./components/Stepper.vue";
-import Product from "./components/Product.vue";
+//import Stepper from "./components/Stepper.vue";
+//import Product from "./components/Product.vue";
 //import Location from "./components/Location.vue";
 //import Category from "./components/Category.vue";
 
@@ -21,10 +23,10 @@ export default {
   name: 'App',
 
   components: {
-    Button,
+  //  Button,
     Header,
-    Stepper,
-    Product,
+  //  Stepper,
+  //  Product,
   //  Location,
   //  Category
   },

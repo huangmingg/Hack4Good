@@ -5,7 +5,7 @@ import VueResource from 'vue-resource'
 import VueRouter from 'vue-router';
 import Routes from './routes.js';
 import VueGoogleCharts from 'vue-google-charts';
-import Location from "./components/Location.vue";
+
 
 Vue.use(VueGoogleCharts)
 Vue.use(VueRouter);
@@ -19,10 +19,10 @@ const myRouter = new VueRouter({
   mode: 'history'
 });
 
-Vue.component('location',Location);
+
 
 new Vue({
   vuetify,
   render: h => h(App),
-  router: myRouter
+  router: myRouter,
 }).$mount('#app')
