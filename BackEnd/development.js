@@ -84,7 +84,7 @@ async function generateRandomPackage(produceID, processorAddress) {
     var packageName = web3.utils.asciiToHex(generateRandomPackageName());
     var packageCategory = web3.utils.asciiToHex("Poultry");
     var packageWeight = generateRandomPackageWeight();
-    var packagedDate = Date.now() - generateRandom(60000 * 60 * 24 * 29) - (60000 * 60 * 24 * 1);
+    var packagedDate = Date.now() - generateRandom(60000 * 60 * 24 * 7) - (60000 * 60 * 24 * 21);
     var bestBefore = packagedDate + (60000 * 60 * 24 * 30);
     console.log(`Packaged Date : ${packagedDate}`);
     console.log(`Packaged Date : ${bestBefore}`);
@@ -114,9 +114,7 @@ async function fillData() {
                 var retailerAddress = selectRandomRetailer()['ethAddress'];
                 await ecosystemInstance.methods.sendToRetailer(packageID, retailerAddress).send({from : processorAddress, gas : 1000000});
             }
-            break;
         }
-        break;
     }
 }
 

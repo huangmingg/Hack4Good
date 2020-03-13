@@ -3,6 +3,7 @@
     <Header></Header>
     <Stepper></Stepper>
     <Button class='cont'></Button>
+    <Product class='cont'></Product>
   </v-app>
 </template>
 
@@ -10,6 +11,7 @@
 import Button from "./components/Button.vue";
 import Header from "./components/Header.vue";
 import Stepper from "./components/Stepper.vue";
+import Product from "./components/Product.vue";
 
 export default {
   name: 'App',
@@ -18,6 +20,7 @@ export default {
     Button,
     Header,
     Stepper,
+    Product
   },
 
   data: () => ({

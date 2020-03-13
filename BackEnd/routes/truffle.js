@@ -16,21 +16,52 @@ function handlePackageInformation(listOfPackages) {
                       "Package Name" : web3.utils.hexToAscii(listOfPackages[item][1]),
                       "Package Category" : web3.utils.hexToAscii(listOfPackages[item][2]),
                       "Package Weight" : listOfPackages[item][3],
-                      "Processed Date" : listOfPackages[item][4],
-                      "Best Before" : listOfPackages[item][5]}
+                      "Processed Date" : new Date(parseInt(listOfPackages[item][4])).toLocaleDateString(),
+                      "Best Before" : new Date(parseInt(listOfPackages[item][5])).toLocaleDateString(),
+                      "Processor" : getProcessorName(listOfPackages[item][6]),
+                      "Asset ID" : listOfPackages[item][8]}
     final_output.push(formatted_output);
   } 
   return final_output;
 }
 
-router.get('/fetchStockLevel', cors(), async function(req, res, next) {
+function handleDetailedInformation(produceInformation) {
+  const [producerName, producerOrigin] = getProducerName(produceInformation[3]); 
+  console.log(producerName);
+  console.log(producerOrigin);
+  formatted_output = {
+                      "ProduceRefID" : web3.utils.hexToAscii(produceInformation[0]),
+                      "Produce Name" : web3.utils.hexToAscii(produceInformation[1]),
+                      "Date of Birth" : new Date(parseInt(produceInformation[2])).toLocaleDateString(),
+                      "Producer" : producerName,
+                      "Country" : producerOrigin};
+  return formatted_output;
+}
+
+function getProcessorName(processorAddress) {
+  processors = devTools.processors;
+  var result = processors.filter((object) => {
+    return object['ethAddress'] === processorAddress
+  })
+  return `${result[0]['shopName']} (${result[0]['country']})`;
+}
+
+function getProducerName(producerAddress) {
+  producers = devTools.producers;
+  var result = producers.filter((object) => {
+    return object['ethAddress'] === producerAddress
+  })
+  return [result[0]['shopName'],result[0]['country']];
+}
+
+router.get('/stock/levels', cors(), async function(req, res, next) {
   retailers = devTools.retailers;
   output = []
   for (retailer in retailers) {
     var address = retailers[retailer]['ethAddress'];
-
     await ecosystemInstance.methods.getPackagesOwned(address).call()
     .then(function(result) {
+      console.log(result);
       result = handlePackageInformation(result);
       output.push({"shop_name" : retailers[retailer]['shopName'], "res":result});
     })
@@ -46,50 +77,18 @@ router.get('/fetchStockLevel', cors(), async function(req, res, next) {
 });
 
 
-router.get('/fetchAddress', cors(), function(req, res, next) {
-  web3.eth.getAccounts()
-  .then(function(result){
-    account = result[0];
-    console.log(account)
-    res.send({'success' : true, 'message':account});
-
+router.get('/package/information', cors(), async function(req, res, next) {
+  var produceID = req.query.produceID;
+  await ecosystemInstance.methods.getProduceInformation(produceID).call()
+  .then(function(result) {
+    output = handleDetailedInformation(result);
+    res.send({'success' : true, 'message': output});
   })
-  .catch(function(error) {
-    console.log(error)
-    res.send({'success' : false, 'message': error});
+  .catch(function(err) {
+    res.send({'success' : false, 'message': err});   
   })
 });
 
-
-router.get('/getContractOwner', cors(), function(req, res, next) {
-  ecosystemInstance.methods.getContractOwner().call()
-  .then((result) => {
-    console.log(`Contract owner is : ${result}`)
-    res.send({'success' : true, 'message':result});
-  });
-});
-
-router.post('/getProductInformation', cors(), function(req, res, next) {
-  var productID = req.body.productID;
-
-});
-
-router.get('/getBalance', cors(), function(req, res, next) {
-  web3.eth.getBalance(accounts[1])
-  .then((result) => {
-    console.log(result)
-    res.send({'success' : true, 'message':result});
-  });
-});
-
-
-router.get('/getName', cors(), async function(req, res, next) {
-  web3.eth.getBalance(accounts[1])
-  .then((result) => {
-    console.log(result)
-    res.send({'success' : true, 'message':result});
-  });
-});
 
 module.exports = router;
 

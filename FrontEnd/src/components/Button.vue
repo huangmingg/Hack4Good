@@ -1,5 +1,5 @@
 <template>
-    <v-btn @click="retrieveStockLevel">
+    <v-btn @click="retrieveStockLevel()">
         Get stock level for all
     </v-btn>
 </template>
@@ -10,7 +10,7 @@ import IP_ADDRESS from "../env.js";
 export default {
     methods: {
     async retrieveStockLevel() {
-      await fetch(IP_ADDRESS + '/truffle/fetchStockLevel', {
+      await fetch(IP_ADDRESS + '/truffle/stock/levels', {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -23,6 +23,10 @@ export default {
         // do something with the results here
         });
       }
+    },
+    
+    beforeMount () {
+      this.retrieveStockLevel();
     },
 }
 </script>
