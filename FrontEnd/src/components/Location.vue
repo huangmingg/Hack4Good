@@ -36,6 +36,7 @@
     </v-toolbar-title>
   </v-sheet>
 <!-- for info -->
+
   <v-sheet>
     <v-pagination
       v-model="pg"
@@ -44,28 +45,25 @@
     ></v-pagination>
     <v-container class="main">
       <ul>
-        <li v-for="i in display" :key="i.name" class="item">
-          {{ i.name }}: {{ i.qty }}
-<!--        <GChart
-    :settings="{packages: ['corechart']}"
-    :resizeDebounce="500"
-    :data="display"
-    :options="chartOptions"
-    :events="chartEvents"
-    :createChart="(el, google) => new google.visualization.BarChart(el)"
-    @ready="onChartReady"
-  />
-  <router-link to="/supermarket" exact>hello</router-link>; -->
+       <!-- <li v-for="i in display" :key="i.name" class="item"> -->
+          <li v-for="i in stocks" :key="i.shop_name">
+          {{ i.shop_name }}: {{i.items.length}}
         </li>
       </ul>
     </v-container>
+    
   </v-sheet>
+  <v-sheet>
+    Test
+    {{stocks}}
+    
+    </v-sheet>
 </v-app>
+
 </template>
 
 <script>
-//import { GChart } from 'vue-google-charts'
-
+import IP_ADDRESS from "../env.js";
 export default {
   data: () => ({
     loc: 'A', //default
@@ -79,26 +77,7 @@ export default {
     },
     pg: 1,
     maxitems: 5,
-    chartsLib: null,
-    chartData: [
-      ['Area', 'Amount', { role: 'style' }],
-      ['Woodlands', 1500, 'blue'],            // RGB value
-      ['Yishun', 2200, 'blue'],            // English color name
-      ['Sembawang', 1000, 'blue'],
-      ['Admiralty', 2000, 'blue' ],
-      ['Khatib', 1080, 'blue' ],
-      ['Marsling', 1200, 'blue' ],
-      ['Yio Chu Kang', 2500, 'blue' ],
-    ],
-    chartOptions: {
-        height: 300,
-    },
-    chartEvents: {
-      select: () => {
-        alert("next page"),
-        <router-link to="/supermarket" exact>this.$refs.gChart.chartObject;</router-link>;
-      }
-    },
+    stocks: [],
     goods: [
       {name: 'Woodlands', qty: 1500, loc: 'N'},
       {name: 'Yishun', qty: 2200, loc: 'N'},
@@ -148,18 +127,56 @@ export default {
       this.arranged = this.arrange(this.filterGds) //arrange the filtered goods
       this.display = this.arranged.slice(0, 5) //by default should show the first 5 items
     },
-    onChartReady (chart, google) {
-      this.chartsLib = google
+        async retrieveProductInformation() {
+        var produceID = 0;
+        await fetch(IP_ADDRESS + '/truffle/package/information?produceID=' + produceID, {
+            method: 'GET',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'}
+            })
+        .catch((error) => {console.log(error)})
+        .then((response) => response.json())
+        .then((res) => {
+            console.log(res)
+            // do something with the results here
+            });
+        },
+    async retrieveStockLevel() {
+      await fetch(IP_ADDRESS + '/truffle/stock/levels', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'}
+        })
+      .catch((error) => {console.log(error)})
+      .then((response) => response.json())
+      .then((res) => {
+        for (var i = 0; i < res.message.length; i++) {
+            var shopName = res.message[i].shop_name; 
+            var items = res.message[i].res;
+            var expiringItems = items.filter((object) => {
+                return object["Best Before"] < (parseInt(Date.now()) + 60000 * 60 * 24 * 3);
+            })
+            this.stocks.push({"shop_name" : shopName, "items" : expiringItems});
+        }
+        this.stocks.sort(function(a, b) {
+            return b["items"].length - a["items"].length; 
+        })
+        console.log(this.stocks);
+        });
+    }},
+    beforeMount () {
+      this.retrieveStockLevel();
     },
-  },
   computed: { //cannot modify data property here
-      filterGds: function() {
+ /*     filterGds: function() {
         if (this.loc == 'A') {
           return this.goods
         } else {
           return this.goods.filter(good => good.loc == this.loc);
         }
-      },
+      }, */
       totalpg: function() {
         if (this.loc == 'A') {
           return Math.ceil(this.goods.length/this.maxitems);
@@ -168,9 +185,7 @@ export default {
         }
       },
    },
-   components: {
-    // GChart
-   }
+   
 }
 </script>
 
