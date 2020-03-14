@@ -1,7 +1,7 @@
 <template>
     <header class="header-login-signup">
     <span>
-        FoodBlocks
+        <v-img height="1.45cm" width = "3cm" src="../assets/FoodBlocks.png"></v-img>
     </span>
         <nav>
         <ul>
@@ -24,15 +24,15 @@ export default {
 	background-color:rgba(226, 171, 53, 0.651);
 	box-shadow:0 1px 1px #ccc;
 	padding: 10px;
-	height: 60px;
+	height: 75px;
 	text-align: center;
 }
 
 .header-login-signup span {
     float: left;
-    margin-top: 10px;
+    margin-top: 5px;
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .header-login-signup nav {
@@ -52,6 +52,7 @@ export default {
 .header-login-signup ul {
 	font: 14px Arial, Helvetica, sans-serif;
 	list-style: none;
+    margin-top: 10px;
 	line-height: 1;
 	float: right;
 }
