@@ -1,18 +1,21 @@
 <template>
 <v-sheet>
-    <v-toolbar-title class="head">
-      Stock Level for Expiring Goods in 3 days
-    </v-toolbar-title>
+        <v-toolbar-title class="head">
+            <strong>{{shop_title}}</strong> Products 
+        </v-toolbar-title>
+
         <v-list class="list">
-            <v-list-item v-for="stock in stocks" :key="stock.shop_name" @click="handleClick(stock)">
+            <v-list-item v-for="item in information" :key="item['Package Reference ID']" @click="handleClick(item)">
                 <v-list-item-content class="item">
                     <v-card>
-                    <v-list-item-title v-text="stock.shop_name + ' : ' + stock.items.length" class= "text"></v-list-item-title>
-                    <v-list-item-avatar>
-                        <v-list-item-title v-text="stock.items.length"></v-list-item-title>
-                    </v-list-item-avatar>
+                        <v-list-item-title class="text">
+                            {{item['Package Name']}}
+                        </v-list-item-title>
+                        <v-list-item-title class="text">
+                            {{new Date(item['Best Before']).toLocaleDateString()}}
+                        </v-list-item-title>
                     </v-card>
-               </v-list-item-content>
+               </v-list-item-content>                
             </v-list-item>
         </v-list>
   </v-sheet>
@@ -21,66 +24,27 @@
 <script>
     export default {
      name: 'cat',
-     props: ['stocks'],
+     props: ['stocks','shop'],
      data() {
         return {
-            information: []
+            information: [],
+            shop_title : ""            
         }
      },
      mounted () {
-        if (this.stocks) {
+        if (this.stocks && this.shop) {
             this.information = this.stocks
+            this.shop_title = this.shop
         }
      },
     methods: {
-    async retrieveProductInformation() {
-        var produceID = 0;
-        await fetch(IP_ADDRESS + '/truffle/package/information?produceID=' + produceID, {
-            method: 'GET',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'}
-            })
-        .catch((error) => {console.log(error)})
-        .then((response) => response.json())
-        .then((res) => {
-            console.log(res)
-            });
-        },
-
     handleBack() {
         this.$router.back();
     },
-
-
-    handleClick(stocks) {
-        this.$router.push({name: "page2", params: { stocks: stocks }});
+    handleClick(item) {
+        this.$router.push({name: "history", params: { stocks: item , shop : this.shop_title}});
     },
-
-    async retrieveStockLevel() {
-      await fetch(IP_ADDRESS + '/truffle/stock/levels', {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'}
-        })
-      .catch((error) => {console.log(error)})
-      .then((response) => response.json())
-      .then((res) => {
-        for (var i = 0; i < res.message.length; i++) {
-            var shopName = res.message[i].shop_name; 
-            var items = res.message[i].res;
-            var expiringItems = items.filter((object) => {
-                return object["Best Before"] < (parseInt(Date.now()) + 60000 * 60 * 24 * 3);
-            })
-            this.stocks.push({"shop_name" : shopName, "items" : expiringItems});
-        }
-    }
-
-    data: () => ({
-        stocks : [
-        ]
-    })
+}
 }
 </script>
 

@@ -21,21 +21,6 @@
 import IP_ADDRESS from "../env.js";
 export default {
     methods: {
-    async retrieveProductInformation() {
-        var produceID = 0;
-        await fetch(IP_ADDRESS + '/truffle/package/information?produceID=' + produceID, {
-            method: 'GET',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'}
-            })
-        .catch((error) => {console.log(error)})
-        .then((response) => response.json())
-        .then((res) => {
-            console.log(res)
-            });
-        },
-
 
     handleClick(stocks) {
         this.$router.push({name: "cat", params: { stocks: stocks }});
@@ -59,10 +44,9 @@ export default {
             })
             this.stocks.push({"shop_name" : shopName, "items" : expiringItems});
         }
-        this.stocks.sort(function(a, b) {
-            return b["items"].length - a["items"].length; 
-        })
-            console.log(this.stocks);
+            this.stocks.sort(function(a, b) {
+                return b["items"].length - a["items"].length; 
+            })
         });
     }},
 

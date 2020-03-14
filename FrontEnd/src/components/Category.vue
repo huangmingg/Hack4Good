@@ -1,15 +1,16 @@
 <template>
    <v-sheet>
-        <v-btn @click="handleBack()">
-            <v-icon dark left >mdi-arrow-left</v-icon>Back
-        </v-btn>
         <v-toolbar-title class="head">
-            Stock Levels for {{ information.shop_name }}
+            <strong>{{information.shop_name}}</strong> Food Categories: 
         </v-toolbar-title>
-        <v-list>
-            <v-list-item v-for="item in information.items" :key="item['Package Reference ID']" @click="handleClick(item)"> 
-                <v-list-item-content>
-                    <v-list-item-title v-text="item['Package Name']"></v-list-item-title>
+        <v-list class="list">
+            <v-list-item v-for="key in Object.keys(category)" :key="key" @click="handleClick(key)"> 
+                <v-list-item-content class="item">
+                    <v-card>
+                        <v-list-item-title class="text">
+                    {{key}} : {{ category[key] }}
+                        </v-list-item-title>
+                    </v-card>
                </v-list-item-content>
             </v-list-item>
         </v-list>
@@ -17,44 +18,84 @@
 </template>
 
 <script>
-import IP_ADDRESS from "../env.js";
     export default {
-        name: 'cat',
-        props: ['stocks'],
-        data() {
-            return {
-                information: []
-            }
-        },
-        mounted () {
-            if (this.stocks) {
-                this.information = this.stocks
-            }
-        },
-    methods: {
-    async retrieveProductInformation() {
-        var produceID = 0;
-        await fetch(IP_ADDRESS + '/truffle/package/information?produceID=' + produceID, {
-            method: 'GET',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'}
-            })
-        .catch((error) => {console.log(error)})
-        .then((response) => response.json())
-        .then((res) => {
-            console.log(res)
-            });
-        },
-
-    handleClick(item) {
-        this.$router.push({name: "product", params: { stocks: item }});
-        },
-
-    handleBack() {
-        this.$router.back();
+     name: 'cat',
+     props: ['stocks'],
+     data() {
+        return {
+            information: [],
+            category: []
         }
+     },
+     mounted () {
+        if (this.stocks) { 
+            this.information = this.stocks
+            this.category = this.groupBy();
+            // this.category = this.removeDuplicates();
+            // console.log(this.category);
+        }
+     },
+     computed: {
+    },
+
+    methods: {
+    handleClick(key) {
+        var categoryItems = this.information.items.filter((item) => {
+            return item["Package Category"] == key;
+        })
+        this.$router.push({name: "product", params: { stocks: categoryItems , shop : this.information.shop_name}});
+    },
+
+    removeDuplicates() {
+        var set = new Set();
+        var i;
+        for (i = 0; i < this.information.items.length; i++) {
+        set.add(this.information.items[i]['Package Category']);
+        } 
+        return [...set]
+    },
+
+    groupBy() {
+        var output = {};
+        for (var i = 0; i < this.information.items.length; i++) {
+            var cat_name = this.information.items[i]['Package Category']
+            if (output[cat_name]) {
+                output[cat_name]++;
+            } else {
+                output[cat_name] = 1;
+            }
+        }
+        return output;
+        }
+
     }
-    }
+    
+ }
  
 </script>
+
+<style scoped>
+.head {
+  margin-left: 25px;
+  margin-top: 25px;
+  margin-bottom: 65px;
+}
+.list {
+    margin-left: 25px;
+    background: rgb(19, 31, 71);
+    max-width: 1200px;
+    transform: scale(0.9)
+}
+.item {
+    margin-left: 25px;
+    margin-block-start: 15px;
+    margin-block-end: 15px;
+    color:rgb(19, 31, 71);
+}
+.text {
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+
+}
+</style>
