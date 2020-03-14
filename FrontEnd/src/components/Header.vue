@@ -26,7 +26,7 @@ export default {
 
 <style scoped>
 .header-login-signup {
-	background-color:rgba(226, 171, 53, 0.651);
+	background-color:#e2ab35a6;
 	box-shadow:0 1px 1px #ccc;
 	padding: 10px;
 	height: 75px;

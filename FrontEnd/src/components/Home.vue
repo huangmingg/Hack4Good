@@ -1,18 +1,21 @@
 <template>
 <v-sheet>
     <v-toolbar-title class="head">
-      Stock Level for Expiring Goods in 3 days
+       <v-icon slot="icon" color="#5D737E" size="36" >
+      mdi-chart-bar
+    </v-icon> Stock Level for Expiring Goods in 3 days
     </v-toolbar-title>
-        <v-list>
-            <v-list-item v-for="stock in stocks" :key="stock.shop_name" @click="handleClick(stock)"> 
-                <v-list-item-content>
-                    <v-list-item-title v-text="stock.shop_name + ' : ' + stock.items.length"></v-list-item-title>
-                    <v-list-item-avatar>
-                        <v-list-item-title v-text="stock.items.length"></v-list-item-title>
-                    </v-list-item-avatar>
-               </v-list-item-content>
-            </v-list-item>
-        </v-list>
+        <div class="main">
+            <li v-for="stock in stocks" :key="stock.shop_name" @click="handleClick(stock)"> 
+              <v-hover v-slot:default="{ hover }" open-delay="200">
+                <v-card class= "listCard" :elevation="hover ? 16 : 2" height="50" max-width="550">               
+               <i><font size="4"> {{stock.shop_name}}</font></i><br>
+                <strong>{{stock.items.length}}</strong> item expiring soon
+                </v-card>
+              </v-hover>
+            </li>
+
+        </div>
   </v-sheet>
   
 </template>
@@ -60,3 +63,31 @@ export default {
     })
 }
 </script>
+
+<style scoped>
+.head{
+  padding: 40px;
+  text-align: center;
+  font-size: 30px;
+}
+.main{
+  padding-top: 10px;
+  padding-bottom: 30px;
+     width:800px;
+     margin:0 auto;
+
+}
+.main li {
+  text-align: center;
+  list-style-type: none;
+  font:  15px/1.5 Helvetica, Verdana, sans-serif;
+  margin-bottom: 20px;
+  
+}
+.listCard{
+   background-color:#5D737E;
+   color:#F0F7EE;
+   margin:0 auto;
+}
+
+</style>

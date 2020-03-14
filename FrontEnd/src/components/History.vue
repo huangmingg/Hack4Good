@@ -1,9 +1,11 @@
 <template>
 <v-sheet>
     <v-toolbar-title class="head">
-        History of stock items:
+       <v-icon slot="icon" color="#5D737E" size="36" >
+      mdi-history
+    </v-icon> History of stock items
     </v-toolbar-title>
-  <v-timeline class="line" color="yellow">
+  <v-timeline class="line" color="#5D737E">
     <v-timeline-item
     fill-dot
     v-for="n in steps"
@@ -89,11 +91,10 @@ export default {
 
 <style scoped>
 .theme--light.v-timeline:before {
-    background: rgba(226, 171, 53, 0.651);
+    background: #5D737E;
 }
 .line {
     transform: scale(0.75);
-    background: rgb(19, 31, 71);
     min-height: 750px;
 }
 .time {
@@ -108,13 +109,14 @@ export default {
     font-size: 16px;
 }
 .text {
-    color:rgb(19, 31, 71);
-    background: rgba(226, 171, 53, 0.651);
+    color:white;
+    background: #5D737E;
     font-size: 21px;
 }
 .head {
   margin-left: 25px;
   margin-top: 25px;
+  text-align: center;
 }
 
 </style>
