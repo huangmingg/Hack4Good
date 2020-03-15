@@ -1,81 +1,52 @@
 <template>
 <v-sheet>
-    <v-toolbar-title class="head">
-      Stock Level for Expiring Goods in 3 days
-    </v-toolbar-title>
-        <v-list class="list">
-            <v-list-item v-for="stock in stocks" :key="stock.shop_name" @click="handleClick(stock)">
-                <v-list-item-content class="item">
-                    <v-card>
-                    <v-list-item-title v-text="stock.shop_name + ' : ' + stock.items.length" class= "text"></v-list-item-title>
-                    <v-list-item-avatar>
-                        <v-list-item-title v-text="stock.items.length"></v-list-item-title>
-                    </v-list-item-avatar>
-                    </v-card>
-               </v-list-item-content>
-            </v-list-item>
-        </v-list>
+        <v-toolbar-title class="head">
+            <strong>{{shop_title}}</strong> 
+            <br><v-icon slot="icon" color="#5D737E" size="36" >
+      mdi-cart-outline
+    </v-icon> Products Available
+        </v-toolbar-title>
+
+       <div class="main">
+            <li v-for="item in information" :key="item['Package Reference ID']" @click="handleClick(item)">
+               
+                  <v-hover v-slot:default="{ hover }" open-delay="200">
+                <v-card class= "listCard" :elevation="hover ? 16 : 2" height="50" max-width="550">  
+                            <b>{{item['Package Name']}}</b>
+                            <br>    
+                           <font size="2.5"><i> Expiry Date: {{new Date(item['Best Before']).toLocaleDateString()}} </i></font>
+                </v-card>
+                  </v-hover>                 
+            </li>
+            </div>
+      
   </v-sheet>
-  
 </template>
 
 <script>
-import IP_ADDRESS from "../env.js";
-export default {
-    methods: {
-    async retrieveProductInformation() {
-        var produceID = 0;
-        await fetch(IP_ADDRESS + '/truffle/package/information?produceID=' + produceID, {
-            method: 'GET',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'}
-            })
-        .catch((error) => {console.log(error)})
-        .then((response) => response.json())
-        .then((res) => {
-            console.log(res)
-            });
-        },
-
-
-    handleClick(stocks) {
-        this.$router.push({name: "page2", params: { stocks: stocks }});
-    },
-
-    async retrieveStockLevel() {
-      await fetch(IP_ADDRESS + '/truffle/stock/levels', {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'}
-        })
-      .catch((error) => {console.log(error)})
-      .then((response) => response.json())
-      .then((res) => {
-        for (var i = 0; i < res.message.length; i++) {
-            var shopName = res.message[i].shop_name; 
-            var items = res.message[i].res;
-            var expiringItems = items.filter((object) => {
-                return object["Best Before"] < (parseInt(Date.now()) + 60000 * 60 * 24 * 3);
-            })
-            this.stocks.push({"shop_name" : shopName, "items" : expiringItems});
+    export default {
+     name: 'cat',
+     props: ['stocks','shop'],
+     data() {
+        return {
+            information: [],
+            shop_title : ""            
         }
-        this.stocks.sort(function(a, b) {
-            return b["items"].length - a["items"].length; 
-        })
-            console.log(this.stocks);
-        });
-    }},
-
-    beforeMount () {
-      this.retrieveStockLevel();
+     },
+     mounted () {
+        if (this.stocks && this.shop) {
+            this.information = this.stocks
+            this.shop_title = this.shop
+        }
+     },
+    methods: {
+    handleBack() {
+        this.$router.back();
     },
-
-    data: () => ({
-        stocks : [
-        ]
-    })
+    handleClick(item) {
+        this.$router.push({name: "history", params: { stocks: item , shop : this.shop_title}});
+    },
+}
 }
 </script>
 
@@ -83,21 +54,26 @@ export default {
 .head {
   margin-left: 25px;
   margin-top: 25px;
+  text-align: center;
 }
-.list {
-    margin-left: 25px;
-    background: rgb(19, 31, 71);
-    max-width: 1200px;
-    transform: scale(0.9);
+.main{
+  padding-top: 10px;
+  padding-bottom: 30px;
+     width:800px;
+     margin:0 auto;
+
 }
-.item {
-    margin-left: 25px;
-    margin-block-start: 15px;
-    margin-block-end: 15px;
-    color:rgb(19, 31, 71);
+.main li {
+  text-align: center;
+  list-style-type: none;
+  font:  15px/1.5 Helvetica, Verdana, sans-serif;
+  margin-bottom: 20px;
+  
 }
-.text {
-    margin-left: 25px;
-    margin-top: 25px;
+.listCard{
+   background-color:#5D737E;
+   color:#F0F7EE;
+   margin:0 auto;
 }
+
 </style>

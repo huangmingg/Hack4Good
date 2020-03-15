@@ -1,7 +1,7 @@
 <template>
     <header class="header-login-signup">
     <span>
-        <v-img height="1.45cm" width = "3cm" src="../assets/FoodBlocks.png"></v-img>
+        <v-img height="1.45cm" width = "3cm" src="../assets/FoodBlocks.png" @click="goToHome()"></v-img>
     </span>
         <nav>
         <ul>
@@ -15,13 +15,18 @@
 <script>
 export default {
     data: () => ({
-    })
+    }),
+    methods: {
+        goToHome() {
+            this.$router.push('/')
+        }
+    }
 }
 </script>
 
 <style scoped>
 .header-login-signup {
-	background-color:rgba(226, 171, 53, 0.651);
+	background-color:#e2ab35a6;
 	box-shadow:0 1px 1px #ccc;
 	padding: 10px;
 	height: 75px;

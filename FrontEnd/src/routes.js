@@ -1,13 +1,13 @@
-// import Location from './components/Location.vue'
-import Supermarket from './components/Supermarket.vue'
-import Category from './components/Category.vue'
+import Category from './components/Category.vue';
+import Home from "./components/Home.vue";
 import Product from "./components/Product.vue";
-import Page2 from "./components/Page2.vue";
+import History from "./components/History.vue";
+
 const routes = [
-    { path: '/', name: 'home',component: Product},
-    { path: '/supermarket', name: 'supermarket', component: Supermarket},
+    { path: '/', name: 'home',component: Home},
     { path: '/cat', name: 'cat',component: Category , props: true},
-    { path: '/page2', name: 'page2',component: Page2 , props: true}
+    { path: '/cat/product', name: 'product',component: Product , props: true},
+    { path: '/cat/product/history', name: 'history',component: History , props: true}
 ]
 
 export default routes;
