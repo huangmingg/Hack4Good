@@ -68,7 +68,7 @@ export default {
             `Best Before : ${new Date(this.history["Best Before"]).toLocaleDateString()}`
             ]});
 
-            this.steps.push({id: 2, step: "Processo Information", info: 
+            this.steps.push({id: 2, step: "Processor Information", info: 
             [
             `Processor : ${this.history["Processor"]}`, 
             `Processed Date : ${new Date(this.history["Processed Date"]).toLocaleDateString()}`
