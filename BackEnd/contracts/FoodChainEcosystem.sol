@@ -85,6 +85,7 @@ contract FoodChainEcosystem {
     struct produce {
         bytes produceReferenceID;
         bytes produceName;
+        bytes diet;
         uint dateOfBirth;
         address producer;
     }
@@ -126,8 +127,8 @@ contract FoodChainEcosystem {
     uint256 totalProduceSupply;
     uint256 totalPackageSupply;
 
-    function createProduce(bytes memory produceReferenceID, bytes memory produceName, uint dateofBirth) public isProducer() {
-        produce memory newProduct = produce(produceReferenceID, produceName, dateofBirth, msg.sender);
+    function createProduce(bytes memory produceReferenceID, bytes memory produceName, bytes memory diet, uint dateofBirth) public isProducer() {
+        produce memory newProduct = produce(produceReferenceID, produceName, diet, dateofBirth, msg.sender);
         _produces[totalProduceSupply] = newProduct;
         _produceOwner[totalProduceSupply] = msg.sender;
 

@@ -1,10 +1,298 @@
 ,latitude,location,longitude,shop,country
 0,1.450008617,Admiralty Drive,103.8141109,Giant Hypermart,Singapore
+1,1.440585001,Woodlands Avenue 7,103.800988,Giant Hypermart,Singapore
 2,1.374164454,Ang Mo Kio Avenue 4,103.8395491,Giant Hypermart,Singapore
+3,1.364625403,Ang Mo Kio Street 31,103.847677,Giant Hypermart,Singapore
+4,1.372626669,Ang Mo Kio Avenue 10,103.8539767,Giant Hypermart,Singapore
+5,1.379047759,Bangkit Road,103.773004,Giant Hypermart,Singapore
+6,1.342395088,Upper Bukit Timah Road,103.7764683,Giant Hypermart,Singapore
+7,1.331436231,Bedok Road,103.9482603,Giant Hypermart,Singapore
+8,1.333175419,Bedok North Street 3,103.931265,Giant Hypermart,Singapore
+9,1.332959236,Bedok Reservoir Road,103.9149418,Giant Hypermart,Singapore
+10,1.34962235,Bishan Street 13,103.8498817,Giant Hypermart,Singapore
+11,1.380850355,Buangkok Crescent,103.8793091,Giant Hypermart,Singapore
+12,1.346699052,Bukit Batok East Avenue 3,103.7572767,Giant Hypermart,Singapore
+13,1.358317052,Bukit Batok Street 31,103.7495799,Giant Hypermart,Singapore
+14,1.381877713,Compassvale Bow,103.8970399,Giant Hypermart,Singapore
+15,1.40566048,Edgefield Plains,103.9119913,Giant Hypermart,Singapore
+16,1.383580203,Fajar Road,103.7707748,Giant Hypermart,Singapore
+17,1.310103026,Ghim Moh Road,103.788546,Giant Hypermart,Singapore
+18,1.385405693,Jelapang Road,103.7662285,Giant Hypermart,Singapore
+19,1.373312701,Hougang Avenue 8,103.8863678,Giant Hypermart,Singapore
+20,1.379317835,Hougang Street 51,103.8878471,Giant Hypermart,Singapore
+21,1.334875319,Jurong East Street 21,103.7468947,Giant Hypermart,Singapore
+22,1.282634376,Jalan Membina,103.8255958,Giant Hypermart,Singapore
+23,1.309822265,Joo Chiat Road,103.9022325,Giant Hypermart,Singapore
+24,1.349945436,Jurong West Street 41,103.7251805,Giant Hypermart,Singapore
+25,1.329871172,Ubi Avenue 1,103.9019304,Giant Hypermart,Singapore
+26,1.41738337,Yishun Avenue 2,103.8329799,Giant Hypermart,Singapore
+27,1.332112774,Kim Keat Avenue,103.8573781,Giant Hypermart,Singapore
+28,1.36645364,Pasir Ris Street 21,103.9645985,Giant Hypermart,Singapore
+29,1.305605694,Marine Terrace,103.9153761,Giant Hypermart,Singapore
+30,1.348133789,Students Walk,103.6854185,Giant Hypermart,Singapore
+31,1.301263872,Marine Parade Road,103.9051328,Giant Hypermart,Singapore
+32,1.369008093,Pasir Ris Drive 4,103.9586966,Giant Hypermart,Singapore
+33,1.374611175,Pasir Ris Street 71,103.9371758,Giant Hypermart,Singapore
+34,1.31881487,Paya Lebar Road,103.8925808,Giant Hypermart,Singapore
+35,1.341591087,Jurong West Street 61,103.6970201,Giant Hypermart,Singapore
+36,1.40053115,Punggol Central,103.9105369,Giant Hypermart,Singapore
+37,1.286920062,Redhill Close,103.8186736,Giant Hypermart,Singapore
+38,1.452387573,Sembawang Drive,103.8174401,Giant Hypermart,Singapore
+39,1.441767152,Sembawang Road,103.8244951,Giant Hypermart,Singapore
+40,1.353231639,Serangoon Central Drive,103.8714729,Giant Hypermart,Singapore
+41,1.377897277,Choa Chu Kang Avenue 3,103.7390155,Giant Hypermart,Singapore
+42,1.294324165,Temasek Boulevard,103.860372,Giant Hypermart,Singapore
+43,1.372224562,Tampines North Drive 2,103.9320462,Giant Hypermart,Singapore
+44,1.349224196,Tampines Street 81,103.9349125,Giant Hypermart,Singapore
+45,1.354593929,Tampines Street 32,103.9601535,Giant Hypermart,Singapore
+46,1.277795391,Telok Blangah Crescent,103.8193413,Giant Hypermart,Singapore
+47,1.333622326,Lorong 4 Toa Payoh,103.8509779,Giant Hypermart,Singapore
+48,1.430840068,Woodlands Drive 44,103.7934163,Giant Hypermart,Singapore
+49,1.445622899,Woodlands Avenue 6,103.798141,Giant Hypermart,Singapore
+50,1.442835921,Woodlands Street 82,103.7907708,Giant Hypermart,Singapore
+51,1.430618304,Yishun Avenue 5,103.828763,Giant Hypermart,Singapore
+52,1.436114254,Yishun Street 22,103.8376052,Giant Hypermart,Singapore
+53,1.424899319,Yishun Avenue 11,103.8472498,Giant Hypermart,Singapore
+54,1.319436174,Bukit Timah Road,103.8273458,Cold Storage,Singapore
+55,1.274617941,Enggor Street,103.8443196,Cold Storage,Singapore
+56,1.30974242,Kallang Avenue,103.8641017,Cold Storage,Singapore
+57,1.300117893,Victoria Street,103.8561916,Cold Storage,Singapore
+58,1.435927026,Woodlands Square,103.7860475,Cold Storage,Singapore
+59,1.301514467,Orchard Road,103.8400544,Cold Storage,Singapore
+60,1.307622826,Orchard Road,103.8285904,Cold Storage,Singapore
+61,1.323552869,Sunset Way,103.7675155,Cold Storage,Singapore
+62,1.322573169,Bukit Timah Road,103.8142455,Cold Storage,Singapore
+63,1.392094156,Sengkang Square,103.89498,Cold Storage,Singapore
+64,1.331775815,Upper Changi Road,103.9462012,Cold Storage,Singapore
+65,1.321447681,Eastwood Road,103.9554195,Cold Storage,Singapore
+66,1.299150165,Fusionopolis Way,103.7875812,Cold Storage,Singapore
+67,1.293526325,Kim Seng Promenade,103.8320712,Cold Storage,Singapore
+68,1.387603302,Seletar Road,103.8694236,Cold Storage,Singapore
+69,1.331491466,Greenwood Avenue,103.8068093,Cold Storage,Singapore
+70,1.330873866,Fifth Avenue,103.7957003,Cold Storage,Singapore
+71,1.264478445,Maritime Square,103.8203152,Cold Storage,Singapore
+72,1.363550958,Hillview Rise,103.7642361,Cold Storage,Singapore
+73,1.310255419,Holland Avenue,103.7953504,Cold Storage,Singapore
+74,1.359544509,Hougang Street 21,103.8851691,Cold Storage,Singapore
+75,1.304098062,Orchard Turn,103.8315921,Cold Storage,Singapore
+76,1.247758615,Ocean Way,103.8419211,Cold Storage,Singapore
+77,1.279724915,Marina Boulevard,103.8545488,Cold Storage,Singapore
+78,1.283558721,Bayfront Avenue,103.8585057,Cold Storage,Singapore
+79,1.317561967,Holland Road,103.7858406,Cold Storage,Singapore
+80,1.302337453,Stadium Walk,103.8764492,Cold Storage,Singapore
+81,1.305086818,East Coast Road,103.9050989,Cold Storage,Singapore
+82,1.277526289,Straits View,103.8529353,Cold Storage,Singapore
+83,1.429698486,Yishun Avenue 2,103.8357765,Cold Storage,Singapore
+84,1.320211007,Thomson Road,103.8436568,Cold Storage,Singapore
+85,1.301760495,Clementi Road,103.7693711,Cold Storage,Singapore
+86,1.30375856,Orchard Road,103.8352403,Cold Storage,Singapore
+87,1.301263872,Marine Parade Road,103.9051328,Cold Storage,Singapore
+88,1.300820718,Orchard Road,103.8450673,Cold Storage,Singapore
+89,1.293893579,North Bridge Road,103.8531199,Cold Storage,Singapore
+90,1.360121549,Upper Bukit Timah Road,103.767558,Cold Storage,Singapore
+91,1.247150405,Cove Avenue,103.839555,Cold Storage,Singapore
+92,1.350675521,Serangoon Central,103.8718616,Cold Storage,Singapore
+93,1.312847064,First Street,103.9237886,Cold Storage,Singapore
+94,1.33662109,Dunearn Road,103.7837859,Cold Storage,Singapore
+95,1.306815007,Vista Exchange Green,103.7884627,Cold Storage,Singapore
+96,1.302424172,Orchard Road,103.8346761,Cold Storage,Singapore
+97,1.354204304,Tampines Central 1,103.945052,Cold Storage,Singapore
+98,1.304853421,Tanglin Road,103.8238835,Cold Storage,Singapore
 99,1.292164661,Clemenceau Avenue,103.8426015,Cold Storage,Singapore
 100,1.317178383,Thomson Road,103.8434839,Cold Storage,Singapore
+101,1.303818114,West Coast Road,103.7662664,Cold Storage,Singapore
+102,1.350296836,Bukit Batok Central Link,103.7490642,Cold Storage,Singapore
+103,1.448864022,Canberra Street,103.8323929,Sheng Siong,Singapore
+104,1.39922857,Anchorvale Crescent,103.8896539,Sheng Siong,Singapore
+105,1.324635731,New Upper Changi Road,103.9310688,Sheng Siong,Singapore
+106,1.344498105,Bukit Batok East Avenue 6,103.7553752,Sheng Siong,Singapore
+107,1.287082783,Chin Swee Road,103.8415801,Sheng Siong,Singapore
+108,1.433031982,Yishun Avenue 9,103.8416008,Sheng Siong,Singapore
+109,1.393327866,Anchorvale Road,103.8866176,Sheng Siong,Singapore
+110,1.33143368,Bedok North Road,103.9368654,Sheng Siong,Singapore
+111,1.347371802,Bukit Batok West Avenue 8,103.7436981,Sheng Siong,Singapore
+112,1.329181051,Circuit Road,103.8882484,Sheng Siong,Singapore
+113,1.431098072,Woodlands Drive 16,103.7985076,Sheng Siong,Singapore
+114,1.370188607,Ang Mo Kio Avenue 3,103.8434132,Sheng Siong,Singapore
+115,1.332402306,Bedok North Street 3,103.9255006,Sheng Siong,Singapore
+116,1.355723081,Bukit Batok West Avenue 8,103.7393031,Sheng Siong,Singapore
+117,1.295319663,Dawson Road,103.8097586,Sheng Siong,Singapore
+118,1.36754925,Ang Mo Kio Avenue 3,103.8367406,Sheng Siong,Singapore
+119,1.338242032,Bedok Reservoir Road,103.9233039,Sheng Siong,Singapore
+120,1.353038249,Bukit Batok West Avenue 6,103.7439484,Sheng Siong,Singapore
+121,1.312724011,Geylang Road,103.8787054,Sheng Siong,Singapore
+122,1.446804139,Woodlands Rise,103.8054876,Sheng Siong,Singapore
+123,1.377828766,Elias Road,103.9423643,Sheng Siong,Singapore
+124,1.314278602,Clementi Avenue 2,103.7713506,Sheng Siong,Singapore
+125,1.307785095,Jalan Berseh,103.857011,Sheng Siong,Singapore
+126,1.43150527,Woodlands Street 31,103.7735157,Sheng Siong,Singapore
+127,1.402621973,Edgedale Plains,103.9165196,Sheng Siong,Singapore
+128,1.367000541,Pasir Ris Street 21,103.9646178,Sheng Siong,Singapore
+129,1.309791021,Clementi Avenue 1,103.7686577,Sheng Siong,Singapore
+130,1.321619038,Mcnair Road,103.8593827,Sheng Siong,Singapore
+131,1.433512535,Woodlands Street 12,103.7797469,Sheng Siong,Singapore
+132,1.369686255,Pasir Ris Street 51,103.9479224,Sheng Siong,Singapore
+133,1.302464088,Clementi West Street 2,103.763751,Sheng Siong,Singapore
+134,1.301864727,Tanglin Halt Road,103.7981743,Sheng Siong,Singapore
+135,1.42015551,Yishun Avenue 4,103.8435589,Sheng Siong,Singapore
+136,1.397798747,Fernvale Street,103.8816988,Sheng Siong,Singapore
+137,1.355952387,Tampines Central 1,103.9459374,Sheng Siong,Singapore
+138,1.384005825,Fajar Road,103.7710296,Sheng Siong,Singapore
+139,1.339044798,Lorong 7 Toa Payoh,103.8555411,Sheng Siong,Singapore
+140,1.428230851,Yishun Central 1,103.8374503,Sheng Siong,Singapore
+141,1.403719398,Punggol Central,103.906138,Sheng Siong,Singapore
+142,1.361136458,Tampines Avenue 9,103.9374256,Sheng Siong,Singapore
+143,1.308155591,Ghim Moh Link,103.7862591,Sheng Siong,Singapore
+144,1.31423937,Upper Boon Keng Road,103.870914,Sheng Siong,Singapore
+145,1.416018805,Yishun Street 81,103.8350008,Sheng Siong,Singapore
+146,1.348784897,Jurong West Avenue 5,103.7034157,Sheng Siong,Singapore
+147,1.320000402,Aljunied Avenue 2,103.8873631,Sheng Siong,Singapore
+148,1.435158951,Woodlands Street 13,103.7760233,Sheng Siong,Singapore
+149,1.40206051,Sumang Lane,103.8922138,Sheng Siong,Singapore
+150,1.380605125,Woodlands Road,103.7600416,Sheng Siong,Singapore
+151,1.443151211,Marsiling Drive,103.7751648,Sheng Siong,Singapore
+152,1.410819269,Sumang Link,103.9003717,Sheng Siong,Singapore
+153,1.318657284,Penjuru Walk,103.7331521,Sheng Siong,Singapore
+154,1.351769141,Upper Thomson Road,103.8360677,Sheng Siong,Singapore
+155,1.388240217,Segar Road,103.7695754,Sheng Siong,Singapore
+156,1.322136363,Teban Gardens Road,103.7382928,Sheng Siong,Singapore
 157,1.378297688,Teck Whye Lane,103.7540714,Sheng Siong,Singapore
 158,1.325474758,Yuan Ching Road,103.7252471,Sheng Siong,Singapore
+159,1.392138285,Jalan Kayu,103.8724906,FairPrice,Singapore
+160,1.303861208,East Coast Road,103.9028714,FairPrice Finest,Singapore
+161,1.308806094,French Road,103.861312,FairPrice,Singapore
+162,1.324772074,New Upper Changi Road,103.9292677,FairPrice Finest,Singapore
+163,1.293512877,Lower Kent Ridge Road,103.7846856,FairPrice,Singapore
 164,1.332633815,Potong Pasir Avenue 2,103.8671517,FairPrice,Singapore
+165,1.391396846,Sengkang West Avenue,103.876237,FairPrice Finest,Singapore
 166,1.325617641,Joo Koon Circle,103.6784106,Warehouse Club,Singapore
 167,1.33931504,Jurong West Central 3,103.705351,FairPrice Xtra,Singapore
+168,1.406382096,Punggol Central,103.9022437,FairPrice Finest,Singapore
+169,1.370894569,Ang Mo Kio Avenue 10,103.8563965,FairPrice Shop,Singapore
+170,1.348888439,Bishan Street 13,103.849692,FairPrice,Singapore
+171,1.303071576,Stadium Place,103.8730447,FairPrice Xtra,Singapore
+172,1.377430067,Upper Serangoon View,103.9037129,FairPrice,Singapore
+173,1.449544856,Sembawang Way,103.8187276,FairPrice,Singapore
+174,1.356406287,Airport Boulevard,103.9862118,FairPrice Finest,Singapore
+175,1.304763568,Dover Crescent,103.7816972,FairPrice,Singapore
+176,1.312654496,Upper Boon Keng Road,103.8725418,FairPrice,Singapore
+177,1.381833459,Compassvale Link,103.8939094,FairPrice,Singapore
+178,1.323796071,Lorong Limau,103.8556706,FairPrice,Singapore
+179,1.309183033,Holland Drive,103.7926405,FairPrice,Singapore
+180,1.397301909,Choa Chu Kang North 6,103.7465581,FairPrice,Singapore
+181,1.315539644,Joo Chiat Road,103.8987649,FairPrice,Singapore
+182,1.31138865,Kitchener Road,103.8566262,FairPrice,Singapore
+183,1.371730573,Hougang Avenue 10,103.8942085,FairPrice,Singapore
+184,1.453610144,Canberra Road,103.8196256,FairPrice,Singapore
+185,1.321190968,Eunos Crescent,103.9035545,FairPrice Shop,Singapore
+186,1.328556562,Circuit Road,103.8853499,FairPrice Shop,Singapore
+187,1.415590703,Orchid Club Road,103.8473342,FairPrice,Singapore
+188,1.350675521,Serangoon Central,103.8718616,FairPrice Xtra,Singapore
+189,1.315496754,Commonwealth Avenue West,103.7645702,FairPrice Finest,Singapore
+190,1.365280606,Maju Avenue,103.8651012,FairPrice Finest,Singapore
+191,1.366558302,Ang Mo Kio Avenue 1,103.8416241,FairPrice,Singapore
+192,1.284811304,Kim Tian Road,103.8293069,FairPrice,Singapore
+193,1.357222831,Bishan Street 24,103.8437853,FairPrice,Singapore
+194,1.323653452,Lengkong Tiga,103.9108536,FairPrice,Singapore
+195,1.314149966,Geylang Road,103.8885449,FairPrice,Singapore
+196,1.371410968,Ang Mo Kio Avenue 6,103.8470845,FairPrice,Singapore
+197,1.305806097,Scotts Road,103.8330596,FairPrice Finest,Singapore
+198,1.273450248,Alexandra Road,103.8016828,FairPrice,Singapore
+199,1.334898661,Changi Business Park Avenue 1,103.9638047,FairPrice Xtra,Singapore
+200,1.326945045,Ah Hood Road,103.8465544,FairPrice Finest,Singapore
+201,1.431063955,Woodlands Avenue 1,103.7904541,FairPrice,Singapore
+202,1.293036009,River Valley Road,103.8270691,FairPrice Finest,Singapore
+203,1.311885959,West Coast Drive,103.7590809,FairPrice,Singapore
+204,1.33255233,Jurong Gateway Road,103.7432622,FairPrice Xtra,Singapore
+205,1.286680267,Lengkok Bahru,103.8137663,FairPrice,Singapore
+206,1.28645354,Jalan Bukit Merah,103.8082424,FairPrice,Singapore
+207,1.365748017,Bukit Batok West Avenue 7,103.74848,FairPrice,Singapore
+208,1.331770545,Macpherson Road,103.8792945,FairPrice,Singapore
+209,1.333306338,Jurong East Central 1,103.7403024,FairPrice Finest,Singapore
+210,1.397535018,Choa Chu Kang Drive,103.7474051,FairPrice Finest,Singapore
+211,1.33411313,Changi Business Park Central 1,103.9627928,FairPrice Finest,Singapore
+212,1.336538681,Tai Seng Street,103.8887627,FairPrice,Singapore
+213,1.318931326,Eunos Road 8,103.8944829,FairPrice,Singapore
+214,1.338890722,Lorong 4 Toa Payoh,103.8489933,FairPrice Shop,Singapore
+215,1.319303367,Bendemeer Road,103.8640498,FairPrice Shop,Singapore
+216,1.417999263,Yishun Ring Road,103.8412365,FairPrice,Singapore
+217,1.300212928,Somerset Road,103.8372865,FairPrice Finest,Singapore
+218,1.402634601,Punggol Drive,103.9132706,FairPrice,Singapore
+219,1.308492881,Ghim Moh Link,103.7845981,FairPrice,Singapore
+220,1.404610031,Punggol Drive,103.9086656,FairPrice,Singapore
+221,1.439749518,Woodlands Drive 71,103.8007207,FairPrice,Singapore
+222,1.428754606,Northpoint Drive,103.8363245,FairPrice,Singapore
+223,1.342562423,Jurong East Street 24,103.7392597,FairPrice Shop,Singapore
+224,1.277077068,Silat Avenue,103.8314259,FairPrice Shop,Singapore
+225,1.34715255,Bukit Batok West Avenue 8,103.7428248,FairPrice,Singapore
+226,1.353101202,Tampines Walk,103.9408486,FairPrice,Singapore
+227,1.355242903,Tampines Street 86,103.9316236,FairPrice,Singapore
+228,1.345512106,Jurong East Street 31,103.7312191,FairPrice,Singapore
+229,1.386218355,Sengkang East Avenue,103.8929955,FairPrice,Singapore
+230,1.349034109,Bukit Batok Central,103.7495668,FairPrice,Singapore
+231,1.289778139,Havelock Road,103.8267937,FairPrice,Singapore
+232,1.346348193,Boon Lay Place,103.7124293,FairPrice,Singapore
+233,1.283092626,Bukit Merah Central,103.8176672,FairPrice,Singapore
+234,1.325940692,Bedok North Street 1,103.93164,FairPrice,Singapore
+235,1.332334683,Bedok North Street 4,103.9380513,FairPrice,Singapore
+236,1.37948804,Jelebu Road,103.764595,FairPrice Finest,Singapore
+237,1.338656776,Jalan Anak Bukit,103.7785605,FairPrice Finest,Singapore
+238,1.355738684,Airport Boulevard,103.9891119,FairPrice,Singapore
+239,1.312482985,Clementi Avenue 3,103.7654768,FairPrice,Singapore
+240,1.314278602,Clementi Avenue 2,103.7713506,FairPrice,Singapore
+241,1.323675505,Bukit Timah Road,103.8102344,FairPrice,Singapore
+242,1.342534459,Simei Street 6,103.9531887,FairPrice,Singapore
+243,1.321722962,Aljunied Avenue 2,103.8868118,FairPrice,Singapore
+244,1.357586117,Hougang Street 21,103.8840493,FairPrice Finest,Singapore
+245,1.373618304,Hougang Avenue 4,103.8857489,FairPrice,Singapore
+246,1.372651672,Hougang Avenue 10,103.8937463,FairPrice,Singapore
+247,1.333825407,Jurong Gateway Road,103.7396769,FairPrice,Singapore
+248,1.339452004,Jurong West Central 2,103.706685,FairPrice,Singapore
+249,1.380018058,Teck Whye Lane,103.7531484,FairPrice,Singapore
+250,1.348333358,Jurong West Street 41,103.7243073,FairPrice,Singapore
+251,1.320992942,Kallang Bahru,103.87039,FairPrice,Singapore
+252,1.392073887,Choa Chu Kang Street 51,103.7430996,FairPrice,Singapore
+253,1.385069923,Choa Chu Kang Avenue 4,103.7452389,FairPrice,Singapore
+254,1.432521149,Woodlands Avenue 3,103.7740746,FairPrice,Singapore
+255,1.301419551,Marine Parade Central,103.9071127,FairPrice Finest,Singapore
+256,1.324245542,New Upper Changi Road,103.9415687,FairPrice,Singapore
+257,1.369799404,Serangoon North Avenue 1,103.8730358,FairPrice,Singapore
+258,1.324920427,Balestier Road,103.8513423,FairPrice,Singapore
+259,1.360323319,Tampines Street 44,103.9531296,FairPrice,Singapore
+260,1.352672322,Tampines Central 5,103.944388,FairPrice,Singapore
+261,1.320531436,Teban Gardens Road,103.7426522,FairPrice,Singapore
+262,1.355028857,Upper Thomson Road,103.8310533,FairPrice Finest,Singapore
+263,1.334844875,Yung Sheng Road,103.720462,FairPrice,Singapore
+264,1.43767919,Woodlands Drive 50,103.7951367,FairPrice,Singapore
+265,1.372398981,Pasir Ris Central Street 3,103.9497492,FairPrice,Singapore
+266,1.332213982,Yung Kuang Road,103.7226916,FairPrice,Singapore
+267,1.42944308,Yishun Avenue 2,103.835005,FairPrice,Singapore
+268,1.375667283,Hougang Street 91,103.8794503,FairPrice Xtra,Singapore
+269,1.385504208,Rivervale Drive,103.9019884,FairPrice,Singapore
+270,1.39250411,Rivervale Crescent,103.9044837,FairPrice,Singapore
+271,1.424528497,Yishun Ring Road,103.8465955,FairPrice,Singapore
+272,1.332761179,Lorong 6 Toa Payoh,103.8471182,FairPrice,Singapore
+273,1.416960498,Yishun Ring Road,103.8353478,FairPrice,Singapore
+274,1.297275314,Killiney Road,103.8385339,FairPrice,Singapore
+275,1.350239431,Bishan Place,103.8484776,FairPrice Finest,Singapore
+276,1.429384741,Woodlands Avenue 1,103.7812921,FairPrice Finest,Singapore
+277,1.347701477,Bukit Batok East Avenue 3,103.7570446,FairPrice,Singapore
+278,1.385096024,Senja Road,103.7602184,FairPrice,Singapore
+279,1.292703398,Dawson Road,103.810959,FairPrice,Singapore
+280,1.286458894,Tiong Bahru Road,103.8270153,FairPrice Finest,Singapore
+281,1.281122269,Depot Road,103.8100313,FairPrice,Singapore
+282,1.394256298,Punggol Field,103.9130435,FairPrice,Singapore
+283,1.345504506,Tampines Street 11,103.9455884,FairPrice,Singapore
+284,1.324139916,Chai Chee Avenue,103.9239697,FairPrice,Singapore
+285,1.354039398,Serangoon Central Drive,103.8708515,FairPrice,Singapore
+286,1.283092626,Bukit Merah Central,103.8176672,FairPrice,Singapore
+287,1.379767543,Pasir Ris Street 72,103.9362076,FairPrice,Singapore
+288,1.332334683,Bedok North Street 4,103.9380513,FairPrice Xtra,Singapore
+289,1.320612586,Sinaran Drive,103.8443315,FairPrice,Singapore
+290,1.35528927,Tampines Street 83,103.9345921,FairPrice,Singapore
+291,1.315363027,Cambridge Road,103.8494345,FairPrice,Singapore
+292,1.338656776,Jalan Anak Bukit,103.7785605,FairPrice,Singapore
+293,1.290909181,Stirling Road,103.8031076,FairPrice,Singapore
+294,1.307827368,Jalan Tiga,103.8847638,FairPrice,Singapore
+295,1.435077894,South Woodlands Drive,103.7866196,FairPrice,Singapore
+296,1.331668148,Lorong 4 Toa Payoh,103.8504872,FairPrice,Singapore

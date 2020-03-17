@@ -2,7 +2,7 @@ const CSVtoJSON = require('csvtojson');
 const fs = require('fs');
 const Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
-
+var _ = require('underscore');
 // Contract deployment -- Only used during development 
 var EcosystemJSON = require("./build/contracts/FoodChainEcosystem.json");
 let abi = EcosystemJSON.abi;
@@ -25,6 +25,8 @@ var packageNames = [
                     "Beef Tenderloin (Chilled)",
                 ];
 
+var diet = ["Grain","Grass", "Concentrates", "Pasture and Forage"]            
+
 var possiblePackageWeight = [150, 200, 250, 300];
 
 // Random functions to generate sample data
@@ -33,8 +35,10 @@ function generateRandom(b) {
     return Math.floor((Math.random() * b));
 }
 
-function generateRandomProduceWeight() {
-    return 900 + generateRandom(200);
+function generateRandomDiet() {
+    var size = diet.length;
+    return diet[generateRandom(size)];
+
 }
 
 function generateRandomProduceSpecies() {
@@ -72,9 +76,10 @@ function selectRandomRetailer() {
 async function generateRandomProduce() {
     var produceReferenceID = web3.utils.asciiToHex(web3.utils.randomHex(12));
     var produceName = web3.utils.asciiToHex(generateRandomProduceSpecies());
+    var diet = web3.utils.asciiToHex(generateRandomDiet());
     var DOB = Date.now() - generateRandom(60000 * 60 * 24 * 30 * 12 * 4) - (60000 * 60 * 24 * 30 * 12);
     var producerAddress = selectRandomProducer()['ethAddress'];
-    await ecosystemInstance.methods.createProduce(produceReferenceID, produceName, DOB).send({from: producerAddress, gas : 1000000});
+    await ecosystemInstance.methods.createProduce(produceReferenceID, produceName, diet, DOB).send({from: producerAddress, gas : 1000000});
     var produceID = await ecosystemInstance.methods.getTotalProduce().call(); 
     return [produceID - 1, producerAddress];
 }
@@ -86,8 +91,8 @@ async function generateRandomPackage(produceID, processorAddress) {
     var packageWeight = generateRandomPackageWeight();
     var packagedDate = Date.now() - generateRandom(60000 * 60 * 24 * 7) - (60000 * 60 * 24 * 21);
     var bestBefore = packagedDate + (60000 * 60 * 24 * 30);
-    console.log(`Packaged Date : ${packagedDate}`);
-    console.log(`Packaged Date : ${bestBefore}`);
+    // console.log(`Packaged Date : ${packagedDate}`);
+    // console.log(`Packaged Date : ${bestBefore}`);
 
     await ecosystemInstance.methods.createPackage(produceID, packageReferenceID, packageName, packageCategory, packageWeight, packagedDate, bestBefore).send({from: processorAddress, gas : 1000000});
     var packageID = await ecosystemInstance.methods.getTotalPackage().call(); 
@@ -97,24 +102,27 @@ async function generateRandomPackage(produceID, processorAddress) {
 
 async function fillData() {
     for (i in producers) {
-        var numberProduce = 2 + generateRandom(3);
-        console.log(`Number of produce for ${producers[i]['shopName']} : ${numberProduce}`);
+        var numberProduce = 20 + generateRandom(10);
+        // console.log(`Number of produce for ${producers[i]['shopName']} : ${numberProduce}`);
         for (var j = 0; j < numberProduce; j++) {
             const [produceID, producerAddress] = await generateRandomProduce();
-            console.log(`Producer Address : ${producerAddress}`);
-            console.log(`Produce ID :${produceID}`)
+            // console.log(`Producer Address : ${producerAddress}`);
+            // console.log(`Produce ID :${produceID}`)
             var processorAddress = selectRandomProcessor()['ethAddress'];
             await ecosystemInstance.methods.sendForProcessing(produceID, processorAddress).send({from: producerAddress, gas : 1000000});
-            var numberPackage = 3 + generateRandom(3);
-            console.log(`Number of packages for produce ${produceID} : ${numberPackage}`);
+            var numberPackage = 15 + generateRandom(10);
+            // console.log(`Number of packages for produce ${produceID} : ${numberPackage}`);
             for (var k = 0; k < numberPackage; k++) {
                 var packageID = await generateRandomPackage(produceID, processorAddress);
                 console.log(`Package ID: ${packageID}`);
-                console.log(`Processor Address: ${processorAddress}`);
+                // console.log(`Processor Address: ${processorAddress}`);
                 var retailerAddress = selectRandomRetailer()['ethAddress'];
                 await ecosystemInstance.methods.sendToRetailer(packageID, retailerAddress).send({from : processorAddress, gas : 1000000});
+                // break;
             }
+            // break;
         }
+        // break;
     }
 }
 
@@ -152,13 +160,15 @@ async function parseProcessors () {
 async function parseRetailers () {
     console.log("Parsing Retailers");
     await CSVtoJSON().fromFile("./_retailer.csv")
-    .then(results => {    
+    .then(results => {  
+        // We are only going to work with 5% of the retailer data scrapped
+        results = _.sample(results, parseInt(0.05 * results.length));  
         for (i in results) {
             addressCount++;
             var shopAddress = accounts[addressCount];
             var shopName = `${results[i]['shop']} - ${results[i]['location']}`; 
             // var shopAddress = web3.eth.accounts.create().address;
-            retailers.push({'shopID': i,'shopName' : shopName, 'country': results[i]['country'], 'ethAddress' : shopAddress});
+            retailers.push({'shopID': i,'shopName' : shopName, 'country': results[i]['country'], 'ethAddress' : shopAddress});    
         }
     });
 }
@@ -209,7 +219,6 @@ module.exports = {
     startNetwork : async function () {
         startNetwork();
     },
-
     producers : producers,
     processors : processors,
     retailers : retailers

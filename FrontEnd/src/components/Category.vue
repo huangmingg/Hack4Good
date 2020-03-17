@@ -33,8 +33,7 @@
         if (this.stocks) { 
             this.information = this.stocks
             this.category = this.groupBy();
-            // this.category = this.removeDuplicates();
-            // console.log(this.category);
+            this.sort();
         }
      },
      computed: {
@@ -43,24 +42,16 @@
     methods: {
     handleClick(key) {
         var categoryItems = this.information.items.filter((item) => {
-            return item["Package Category"] == key;
+            return item["Package Name"] == key;
         })
         this.$router.push({name: "product", params: { stocks: categoryItems , shop : this.information.shop_name}});
     },
 
-    removeDuplicates() {
-        var set = new Set();
-        var i;
-        for (i = 0; i < this.information.items.length; i++) {
-        set.add(this.information.items[i]['Package Category']);
-        } 
-        return [...set]
-    },
-
     groupBy() {
         var output = {};
+
         for (var i = 0; i < this.information.items.length; i++) {
-            var cat_name = this.information.items[i]['Package Category']
+            var cat_name = this.information.items[i]['Package Name']
             if (output[cat_name]) {
                 output[cat_name]++;
             } else {
@@ -68,7 +59,26 @@
             }
         }
         return output;
+    },
+
+    sort() {
+        var sortable = [];
+        for (var i in this.category) {
+            sortable.push([i, this.category[i]]);
         }
+        sortable.sort(function(a, b) {
+            return b[1] - a[1];
+        });
+
+        var objSorted = {}
+        sortable.forEach(function(item){
+            objSorted[item[0]]=item[1]
+        })
+        this.category = objSorted;
+        
+    }
+
+
 
     }
     

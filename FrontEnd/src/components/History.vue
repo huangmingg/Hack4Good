@@ -59,6 +59,7 @@ export default {
         .catch((error) => {console.log(error)})
         .then((response) => response.json())
         .then((res) => {
+            console.log(res);
             this.steps.push({id: 1, step: "Retail Information", info: 
             [
             `Package Reference ID : ${this.history['Package Reference ID']}`,
@@ -78,6 +79,7 @@ export default {
             [
             `Produce Reference ID : ${res.message["ProduceRefID"]}`, 
             `Produce Name         : ${res.message["Produce Name"]}`, 
+            `Diet                 : ${res.message["Diet"]}`,
             `Date of Birth        : ${new Date(res.message["Date of Birth"]).toLocaleDateString()}`,
             `Producer             : ${res.message["Producer"]}`, 
             `Country of Origin    : ${res.message["Country"]}`

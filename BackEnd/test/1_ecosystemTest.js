@@ -12,17 +12,17 @@ contract('FoodChainEcosystem', function(accounts) {
 
         const firstProduceID = 0;
         const FirstProduceReferenceID = web3.utils.asciiToHex("3035307B2831B38310447E03"); 
-        const FirstProduceName = web3.utils.asciiToHex("Yao Hong the Cow");
+        const FirstProduceName = web3.utils.asciiToHex("Cow");
         const FirstProduceDOB = Date.now();
 
         const secondProduceID = 1;
         const SecondProduceDOB = Date.now();
         const SecondProduceReferenceID = web3.utils.asciiToHex("3035307B2831B38310447DE1");
-        const SecondProduceName = web3.utils.asciiToHex("Ryan the Bus");
+        const SecondProduceName = web3.utils.asciiToHex("Bus");
 
         const thirdProduceID = 2;
         const ThirdProduceReferenceID = web3.utils.asciiToHex("3035307B2831B38310447E2F");
-        const ThirdProduceName = web3.utils.asciiToHex("Yu De the Wolf");
+        const ThirdProduceName = web3.utils.asciiToHex("Wolf");
         const ThirdProduceDOB = Date.now();
         
         

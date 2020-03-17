@@ -1,1 +1,1 @@
-ganache-cli --seed Hack4Good -e 10000000000000 -l 80000000 -a 1000
+ganache-cli --seed Hack4Good -e 10000000000000 -l 80000000 -a 250

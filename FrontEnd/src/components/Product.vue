@@ -37,6 +37,7 @@
         if (this.stocks && this.shop) {
             this.information = this.stocks
             this.shop_title = this.shop
+            this.sort();
         }
      },
     methods: {
@@ -46,6 +47,11 @@
     handleClick(item) {
         this.$router.push({name: "history", params: { stocks: item , shop : this.shop_title}});
     },
+    sort() {
+      this.information.sort(function(a, b) {
+            return a["Best Before"] - b["Best Before"];
+      });
+    }
 }
 }
 </script>
