@@ -102,7 +102,7 @@ async function generateRandomPackage(produceID, processorAddress) {
 
 async function fillData() {
     for (i in producers) {
-        var numberProduce = 20 + generateRandom(10);
+        var numberProduce = 5 + generateRandom(5);
         // console.log(`Number of produce for ${producers[i]['shopName']} : ${numberProduce}`);
         for (var j = 0; j < numberProduce; j++) {
             const [produceID, producerAddress] = await generateRandomProduce();
@@ -110,7 +110,7 @@ async function fillData() {
             // console.log(`Produce ID :${produceID}`)
             var processorAddress = selectRandomProcessor()['ethAddress'];
             await ecosystemInstance.methods.sendForProcessing(produceID, processorAddress).send({from: producerAddress, gas : 1000000});
-            var numberPackage = 15 + generateRandom(10);
+            var numberPackage = 10 + generateRandom(5);
             // console.log(`Number of packages for produce ${produceID} : ${numberPackage}`);
             for (var k = 0; k < numberPackage; k++) {
                 var packageID = await generateRandomPackage(produceID, processorAddress);
