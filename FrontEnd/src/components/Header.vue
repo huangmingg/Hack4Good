@@ -3,12 +3,6 @@
     <span>
         <v-img height="1.45cm" width = "3cm" src="../assets/FoodBlocks.png" @click="goToHome()"></v-img>
     </span>
-        <nav>
-        <ul>
-            <li>About Us</li>
-            <li>Contact Us</li>
-        </ul>
-        </nav>
     </header>
 </template>
 
@@ -38,28 +32,6 @@ export default {
     margin-top: 5px;
     font-size: 20px;
     margin-left: 5px;
-}
-
-.header-login-signup nav {
-	font:16px Arial, Helvetica, sans-serif;
-	float: right;
-	padding: 5px;
-}
-
-.header-login-signup ul li {
-	display: inline-flex;
-	margin-left: 15px;
-    margin-right: 10px;
-	margin-top: 10px;
-    list-style-type: none;
-}
-
-.header-login-signup ul {
-	font: 14px Arial, Helvetica, sans-serif;
-	list-style: none;
-    margin-top: 10px;
-	line-height: 1;
-	float: right;
 }
 
 </style>
