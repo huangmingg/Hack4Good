@@ -25,7 +25,6 @@ import IP_ADDRESS from "../env.js";
 export default {
     methods: {
     async checkConnection() {
-      console.log("im here");
       await fetch(IP_ADDRESS + '/connection', {
         method: 'GET',
         headers: {
@@ -37,7 +36,6 @@ export default {
       .then((res) => {
           console.log(res)
       })
-
     },
 
     handleClick(stocks) {
